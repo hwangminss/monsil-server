@@ -1,10 +1,11 @@
 package com.monsil.card.repository.guestbook
 
+import com.monsil.card.handler.dto.GuestBookDTO
+import com.monsil.card.util.PasswordEncoderImpl
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.mapping.Table
 import java.time.LocalDateTime
-import java.util.*
 
 @Table("GuestBook")
 data class GuestBookEntity(
@@ -12,6 +13,18 @@ data class GuestBookEntity(
     @Column("id")
     var id: Long? = null
 ) {
+    companion object {
+        fun assign(guestBookDTO: GuestBookDTO): GuestBookEntity {
+            val map = PasswordEncoderImpl.initEncode(guestBookDTO.password)
+            return GuestBookEntity(id = null).apply {
+                name = guestBookDTO.name
+                detail = guestBookDTO.detail
+                password = map["hashpw"] ?: ""
+                salt = map["salt"]
+            }
+        }
+    }
+
     @Column("name")
     var name: String? = null
 

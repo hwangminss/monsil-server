@@ -4,8 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class CardApplication
+class MonSilApplication
 
 fun main(args: Array<String>) {
-	runApplication<CardApplication>(*args)
+	runApplication<MonSilApplication>(*args)
 }

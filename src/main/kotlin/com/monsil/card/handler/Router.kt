@@ -15,7 +15,10 @@ class Router(
     @Bean
     fun routers() = coRouter {
         "api".nest {
-            POST("/guestbook",guestbookApiHandler::add)
+            "guestbook".nest{
+                POST("add", guestbookApiHandler::add)
+                GET("list", guestbookApiHandler::list)
+            }
         }
     }
 }
