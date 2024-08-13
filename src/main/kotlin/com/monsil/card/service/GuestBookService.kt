@@ -21,6 +21,6 @@ class GuestBookService(
     }
 
     suspend fun list(): Flux<GuestBookEntity> {
-        return guestBookRepository.findAll()
+        return guestBookRepository.findAllByDeletedAtIsNullOrderByCreatedAtDesc()
     }
 }

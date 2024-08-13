@@ -12,6 +12,7 @@ import org.springframework.web.reactive.function.server.ServerRequest
 import org.springframework.web.reactive.function.server.ServerResponse
 import org.springframework.web.reactive.function.server.bodyValueAndAwait
 import org.springframework.web.reactive.function.server.buildAndAwait
+import java.time.LocalDateTime
 
 @Component
 class GuestBookApiHandler (
@@ -23,18 +24,18 @@ class GuestBookApiHandler (
         val gb = request.bodyToMono(GuestBookDTO::class.java).awaitSingleOrNull()
 
         if (gb == null) {
-            log.warn("GuestBookDTO is null")
-            return ServerResponse.badRequest().bodyValueAndAwait("GuestBookDTO is missing or invalid")
+            log.warn("GuestBookDTO가 null입니다")
+            return ServerResponse.badRequest().bodyValueAndAwait("GuestBookDTO가 없거나 유효하지 않습니다")
         }
 
         return try {
-            guestBookService.add(gb)
-            log.info("GuestBookDTO added successfully: $gb")
-            ServerResponse.ok().buildAndAwait()
+            val result = guestBookService.add(gb)
+            log.info("GuestBookDTO가 성공적으로 추가되었습니다: $gb")
+            ServerResponse.ok().bodyValueAndAwait(result)
         } catch (e: Exception) {
-            log.error("Error adding GuestBookDTO to the service", e)
+            log.error("서비스에 GuestBookDTO를 추가하는 중 오류 발생", e)
             ServerResponse.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .bodyValueAndAwait("Error adding guest book entry")
+                .bodyValueAndAwait("방명록 항목 추가 중 오류 발생")
         }
     }
 
@@ -42,16 +43,16 @@ class GuestBookApiHandler (
         return try {
             val gblist = guestBookService.list().collectList().awaitSingleOrNull()
             if (gblist != null) {
-                log.info("Successfully retrieved guest book list with ${gblist.size} entries")
+                log.info("성공적으로 방명록 목록을 가져왔습니다. 항목 수: ${gblist.size}")
                 ServerResponse.ok().bodyValue(mapOf("result" to gblist, "status" to 200)).awaitSingle()
             } else {
-                log.warn("Guest book list is empty or failed to retrieve")
+                log.warn("방명록 목록이 비어있거나 가져오는 데 실패했습니다")
                 ServerResponse.status(HttpStatus.NO_CONTENT).bodyValue(mapOf("status" to 204)).awaitSingle()
             }
         } catch (e: Exception) {
-            log.error("Error retrieving guest book list", e)
+            log.error("방명록 목록을 가져오는 중 오류 발생", e)
             ServerResponse.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .bodyValue(mapOf("status" to 500, "error" to "Internal Server Error"))
+                .bodyValue(mapOf("status" to 500, "error" to "내부 서버 오류"))
                 .awaitSingle()
         }
     }
