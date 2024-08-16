@@ -1,51 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        /* 기본 CSS 스타일을 여기에 추가할 수 있습니다 */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f0f0;
-        }
-        h1 {
-            color: #333;
-        }
-        p {
-            color: #666;
-        }
-    </style>
+    <title>관리자 페이지</title>
+    <link href="/css/manager.css" rel="stylesheet"/>
 </head>
 <body>
 <header>
-    <h1>웹 페이지 제목</h1>
-    <nav>
-        <ul>
-            <li><a href="#">홈</a></li>
-            <li><a href="#">소개</a></li>
-            <li><a href="#">연락처</a></li>
-        </ul>
-    </nav>
+    <h1>관리자 페이지</h1>
 </header>
 
 <main>
     <section>
-        <h2>섹션 제목</h2>
-        <p>여기에 내용이 들어갑니다. 이 문단은 HTML 기본 문서 구조의 일부입니다.</p>
+        <h2>사용자 데이터</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>상태</th>
+                    <th>이름</th>
+                    <th>은행명</th>
+                    <th>계좌번호</th>
+                    <th>카카오페이</th>
+                    <th>전화번호</th>
+                    <th>수정</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user : ${userList}">
+                    <td th:text="${user.id}">1</td>
+                    <td th:text="${user.role == 0 ? '신랑' : (user.role == 1 ? '신부' : (user.role == 3 ? '혼주' : '기타'))}"></td>
+                    <td th:text="${user.name}">황민</td>
+                    <td><input type="text" th:value="${user.bank}" class="bank"></td>
+                    <td><input type="text" th:value="${user.account}" class="account"></td>
+                    <td><input type="text" th:value="${user.kakao}" name="kakao" class="kakao"/></td>
+                    <td><input type="text" th:value="${#strings.substring(user.phone, 4)}" name="phone" class="phone"/></td>
+                    <td><button type="button" class="edit-button">수정</button></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </section>
-
-    <article>
-        <h2>기사 제목</h2>
-        <p>여기에 기사 내용이 들어갑니다.</p>
-    </article>
 </main>
 
 <footer>
-    <p>저작권 © 2024</p>
+    <p>MINSTYLE</p>
 </footer>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script th:src="@{/js/manager.js}"></script>
 </body>
 </html>

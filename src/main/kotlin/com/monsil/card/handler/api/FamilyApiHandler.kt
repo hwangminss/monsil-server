@@ -2,6 +2,8 @@ package com.monsil.card.handler.api
 
 import com.monsil.card.config.MonSilLog
 import com.monsil.card.handler.dto.FamilyDTO
+import com.monsil.card.handler.dto.FamilyUpdateDTO
+import com.monsil.card.handler.dto.GuestBookUpdateDTO
 import com.monsil.card.service.FamilyService
 import kotlinx.coroutines.reactor.awaitSingle
 import kotlinx.coroutines.reactor.awaitSingleOrNull
@@ -51,6 +53,25 @@ class FamilyApiHandler (
             ServerResponse.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .bodyValue(mapOf("status" to 500, "error" to "내부 서버 오류"))
                 .awaitSingle()
+        }
+    }
+
+    suspend fun update(request: ServerRequest): ServerResponse {
+        val gb = request.bodyToMono(FamilyUpdateDTO::class.java).awaitSingle()
+
+        if (gb == null) {
+            log.warn("FamilyUpdateDTO null입니다")
+            return ServerResponse.badRequest().bodyValueAndAwait("FamilyUpdateDTO 없거나 유효하지 않습니다")
+        }
+
+        return try {
+            val result = familyService.update(gb)
+            log.info("GuestBookDTO가 성공적으로 추가되었습니다: $gb")
+            ServerResponse.ok().bodyValueAndAwait(result)
+        } catch (e: Exception) {
+            log.error("서비스에 GuestBookDTO를 추가하는 중 오류 발생", e)
+            ServerResponse.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .bodyValueAndAwait("비밀번호 오류 발생")
         }
     }
 }

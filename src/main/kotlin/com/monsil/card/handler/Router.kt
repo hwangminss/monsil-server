@@ -34,6 +34,7 @@ class Router(
             "family".nest{
                 GET("add", familyApiHandler::add)
                 GET("list", familyApiHandler::list)
+                POST("update", familyApiHandler::update)
             }
         }
     }

@@ -1,0 +1,149 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+}
+
+h1, table, th, td, input {
+    text-align: center;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+table, th, td {
+    border: 1px solid #ccc;
+}
+
+th, td {
+    padding: 8px;
+}
+
+th {
+    background-color: #87CEEB;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+footer {
+    margin-top: auto;
+    background-color: #87CEEB;
+    padding: 10px 0;
+    text-align: center;
+    width: 100%;
+}
+
+input {
+    width: 100%; /* 반응형을 위한 100% 폭 설정 */
+    max-width: 100%; /* 최대 폭을 100%로 설정 */
+    padding: 5px;
+    text-align: center;
+    box-sizing: border-box; /* 패딩이 폭에 포함되도록 설정 */
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* 반응형 디자인 */@media (max-width: 768px) {
+    body {
+        padding: 0 10px;
+    }
+
+    table {
+        font-size: 14px;
+    }
+
+    input {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 0 5px;
+    }
+
+    h1 {
+        font-size: 18px;
+    }
+
+    table {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    thead {
+        display: none;
+    }
+
+    tbody, tr {
+        display: block;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    tr {
+        border: 1px solid #ccc;
+        background-color: #fff;
+        position: relative;
+        padding: 10px;
+        box-sizing: border-box; /* Box-sizing 추가 */
+    }
+
+    td {
+        display: block;
+        width: 100%;
+        box-sizing: border-box; /* Box-sizing 추가 */
+        border-bottom: 1px solid #ccc;
+        text-align: left;
+    }
+
+    td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        display: inline-block;
+        width: 40%;
+        margin-right: 10px;
+    }
+
+input {
+    width: 100%; /* 반응형을 위한 100% 폭 설정 */
+    max-width: 100%; /* 최대 폭을 100%로 설정 */
+    padding: 5px;
+    text-align: center; /* 텍스트를 가운데 정렬 */
+    box-sizing: border-box; /* 패딩이 폭에 포함되도록 설정 */
+    margin: 0 auto; /* input 필드를 가운데 정렬 */
+    display: block; /* 블록 요소로 설정 */
+}
+
+
+
+    button {
+        font-size: 12px;
+        padding: 8px 16px;
+    }
+}

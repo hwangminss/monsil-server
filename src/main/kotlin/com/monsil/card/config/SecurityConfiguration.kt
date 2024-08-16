@@ -21,11 +21,14 @@ class SecurityConfiguration {
                 authorize(
                     pathMatchers(
                         "/",
+                        "/js/**",
+                        "/css/**",
                         "/api/**",
                     ), permitAll
                 )
             }
             csrf { disable() }
+            formLogin { loginPage = "/" }
             httpBasic { disable() }
             cors { }
         }

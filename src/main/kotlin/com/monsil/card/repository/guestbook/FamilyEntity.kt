@@ -33,6 +33,9 @@ data class FamilyEntity(
     @Column("name")
     var name: String? = null
 
+    @Column("bank")
+    var bank: String? = null
+
     @Column("account")
     var account: String? = null
 
