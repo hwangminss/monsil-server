@@ -8,7 +8,7 @@
     font-family: 'GangWonLight';
     src: url('/font/GangWon/GangWonMoDooLight.otf') format('opentype'),
          url('/font/GangWon/GangWonMoDooLight.ttf') format('truetype'),
-         url('/font/GangWon/GangwonEdu_OTFBoldA.woff') format('woff');
+         url('/font/GangWon/GangwonEdu_OTFLightA.woff') format('woff');
     font-weight: 400;
 }
 
@@ -25,7 +25,7 @@ body {
 }
 
 .bold-text {
-    font-family: 'GangwonEdu_OTFBoldA';
+    font-family: 'GangWonBold';
 }
 
 body, html {
@@ -77,7 +77,7 @@ body, html {
     width: 600px;
     height: 100%;
     background-image: url('/img/1234.JPG');
-    background-size: cover;
+    background-size: contain;
     background-position: center;
     transform: translateX(-50%);
     z-index: 1;
@@ -100,21 +100,97 @@ body, html {
 }
 
 .text-large {
-    font-size: 24px;
+    font-size: 26px;
     color: white;
-}
-
-.section2, .section-3, .section-4 {
-    height: 100vh;
-    background-color: #f0f0f0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 32px;
-    color: #333;
 }
 
 .section2 {
     position: relative;
     z-index: 1;
+    font-size: 20px;
+    text-align: center;
+    padding: 30px 0 150px 0;
+    }
+
+.invitation {
+    color: #61c5fa;
+    font-family: 'GangWonBold';
+    font-size: 26px;
+}
+
+.quote {
+    width: 15px;
+    vertical-align: middle;
+}
+
+.separator {
+    margin: 20px 0;
+}
+
+.section3 {
+    padding: 16px;
+    text-align: center;
+    font-family: 'GangWonLight';
+    padding-bottom:150px;
+}
+
+.countdown-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.countdown-title {
+    color: #61c5fa;
+    font-size: 26px;
+    font-family: 'GangWonBold';
+    margin-bottom: 24px;
+}
+
+.countdown-timer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.time-block {
+    width: 60px;
+    height: 80px;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5px;
+}
+
+.time-number {
+    font-size: 20px;
+    color: #333;
+}
+
+.time-label {
+    font-size: 16px;
+    color: #666;
+}
+
+.time-separator {
+    font-size: 20px;
+    line-height: 80px;
+    color: #333;
+}
+
+.countdown-text {
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+.countdown-text-bold {
+    font-weight: bold;
+    color: red;
+}
+
+.highlight {
+    color: red;
+    font-weight: bold;
 }
