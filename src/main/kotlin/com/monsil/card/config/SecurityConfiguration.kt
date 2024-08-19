@@ -23,6 +23,10 @@ class SecurityConfiguration {
                         "/",
                         "/js/**",
                         "/css/**",
+                        "/font/**",
+                        "/img/**",
+                        "/main/**",
+                        "/favicon.png",
                         "/api/**",
                     ), permitAll
                 )

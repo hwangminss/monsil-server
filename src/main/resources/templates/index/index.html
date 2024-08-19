@@ -1,54 +1,30 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>관리자 페이지</title>
-    <link href="/css/manager.css" rel="stylesheet"/>
+    <title>은솔 ♥️ 민 결혼식에 초대합니다</title>
+    <meta property="og:title" content="은솔 ♥️ 민 결혼식에 초대합니다">
+    <meta property="og:description" content="2025.11.08 토요일 오후 1시">
+    <meta property="og:image" content="https://eungming.com/img/1234.JPG">
+    <meta property="og:url" content="https://eungming.com/">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="stylesheet" href="/css/index.css">
 </head>
 <body>
-<header>
-    <h1>관리자 페이지</h1>
-</header>
-
-<main>
-    <section>
-        <h2>사용자 데이터</h2>
-        <div class="table-container">
-            <table>
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>상태</th>
-                    <th>이름</th>
-                    <th>은행명</th>
-                    <th>계좌번호</th>
-                    <th>카카오페이</th>
-                    <th>전화번호</th>
-                    <th>수정</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="user : ${userList}">
-                    <td th:text="${user.id}">1</td>
-                    <td th:text="${user.role == 0 ? '신랑' : (user.role == 1 ? '신부' : (user.role == 3 ? '혼주' : '기타'))}"></td>
-                    <td th:text="${user.name}">황민</td>
-                    <td><input type="text" th:value="${user.bank}" class="bank"></td>
-                    <td><input type="text" th:value="${user.account}" class="account"></td>
-                    <td><input type="text" th:value="${user.kakao}" name="kakao" class="kakao"/></td>
-                    <td><input type="text" th:value="${#strings.substring(user.phone, 4)}" name="phone" class="phone"/></td>
-                    <td><button type="button" class="edit-button">수정</button></td>
-                </tr>
-                </tbody>
-            </table>
+<div class="container">
+    <div class="background-image"></div>
+    <div class="overlay-content">
+        <div class="header">
+            <span class="text-large bold-text">LEE EUNSOL</span>
+            <span class="text-large">HWANG MIN</span>
         </div>
-    </section>
-</main>
-
-<footer>
-    <p>MINSTYLE</p>
-</footer>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script th:src="@{/js/manager.js}"></script>
+        <div class="footer">
+            <div class="text-large">2025.11.08. SAT 13:00</div>
+            <div class="text-large">정동제일교회 본당</div>
+        </div>
+    </div>
+</div>
 </body>
+<script th:src="@{/js/index.js}"></script>
 </html>

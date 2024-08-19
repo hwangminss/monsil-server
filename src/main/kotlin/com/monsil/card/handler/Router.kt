@@ -19,9 +19,9 @@ class Router(
     @Bean
     fun routers() = coRouter {
         "".nest{
-            "/".nest{
-                GET("/", viewHandler::index)
-            }
+            GET("/", viewHandler::index)
+            GET("main", viewHandler::main)
+            GET("manager", viewHandler::manager)
         }
         "api".nest {
             "guestbook".nest{

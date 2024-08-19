@@ -17,8 +17,16 @@ class ViewHandler(
     companion object : MonSilLog
 
     suspend fun index(request: ServerRequest): ServerResponse {
+        return HTML.render("index/index").awaitSingle()
+    }
+
+    suspend fun main(request: ServerRequest): ServerResponse {
+        return HTML.render("main/main").awaitSingle()
+    }
+
+    suspend fun manager(request: ServerRequest): ServerResponse {
         return HTML.render(
-            "index/index",
+            "manager/manager",
             mapOf("userList" to familyService.list().collectList()
             ),
         ).awaitSingle()
