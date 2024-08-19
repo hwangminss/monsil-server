@@ -6,13 +6,17 @@
 
 @font-face {
     font-family: 'GangWonLight';
-    src:url('../font/GangWon/GangWonMoDooLight.otf') format('opentype');
+    src: url('/font/GangWon/GangWonMoDooLight.otf') format('opentype'),
+         url('/font/GangWon/GangWonMoDooLight.ttf') format('truetype'),
+         url('/font/GangWon/GangwonEdu_OTFBoldA.woff') format('woff');
     font-weight: 400;
 }
 
 @font-face {
     font-family: 'GangWonBold';
-    src:url('../font/GangWon/GangWonMoDooBold.otf') format('opentype');
+    src: url('/font/GangWon/GangWonMoDooBold.otf') format('opentype'),
+         url('/font/GangWon/GangWonMoDooBold.ttf') format('truetype'),
+         url('/font/GangWon/GangwonEdu_OTFBoldA.woff') format('woff');
     font-weight: 600;
 }
 
@@ -21,22 +25,38 @@ body {
 }
 
 .bold-text {
-    font-family: 'GangWonBold';
+    font-family: 'GangwonEdu_OTFBoldA';
 }
 
 body, html {
     height: 100%;
     width: 100%;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
 }
 
 .container {
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
     height: 100%;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    transition: opacity 1s ease, transform 1s ease;
+    z-index: 2;
+}
+
+.container.fade-out {
+    opacity: 0;
+    transform: translateY(-100%);
+}
+
+.container.show {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .overlay-content {
@@ -84,10 +104,17 @@ body, html {
     color: white;
 }
 
-.container {
-    transition: transform 0.5s ease-in-out;
+.section2, .section-3, .section-4 {
+    height: 100vh;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+    color: #333;
 }
 
-.container.fade-out {
-    transform: translateY(-100%);
+.section2 {
+    position: relative;
+    z-index: 1;
 }

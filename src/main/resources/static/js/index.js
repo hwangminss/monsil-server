@@ -1,6 +1,30 @@
 document.addEventListener('DOMContentLoaded', function() {
     let startY;
     let isDragging = false;
+    let container = document.querySelector('.container');
+    let section2 = document.querySelector('.section2');
+
+    if (!section2) {
+        console.error('Section 2 element not found');
+        return;
+    }
+
+    function fadeOutAndMoveUp() {
+        container.classList.add('fade-out');
+        container.classList.remove('show');
+    }
+
+    function fadeInAndMoveDown() {
+        container.classList.remove('fade-out');
+        container.classList.add('show');
+    }
+
+    function isNearTopOfSection2() {
+        let rect = section2.getBoundingClientRect();
+            console.log(rect.top);
+
+        return rect.top >= 0;
+    }
 
     document.addEventListener('touchstart', function(event) {
         startY = event.touches[0].clientY;
@@ -9,13 +33,15 @@ document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('touchmove', function(event) {
         let currentY = event.touches[0].clientY;
 
-        if (startY && currentY < startY - 1) {
-            document.querySelector('.container').classList.add('fade-out');
+        if (startY && startY - currentY > 1) {
+            fadeOutAndMoveUp();
+        } else if (currentY - startY > 1 && !isNearTopOfSection2()) {
+            fadeInAndMoveDown();
         }
     }, { passive: true });
 
     document.addEventListener('touchend', function(event) {
-        handleTouchOrMouseEnd();
+        startY = null;
     }, { passive: true });
 
     document.addEventListener('mousedown', function(event) {
@@ -27,28 +53,23 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!isDragging) return;
         let currentY = event.clientY;
 
-        if (startY && currentY < startY - 1) {
-            document.querySelector('.container').classList.add('fade-out');
+        if (startY && startY - currentY > 1) {
+            fadeOutAndMoveUp();
+        } else if (currentY - startY > 1 && !isNearTopOfSection2()) {
+            fadeInAndMoveDown();
         }
     });
 
     document.addEventListener('mouseup', function(event) {
         isDragging = false;
-        handleTouchOrMouseEnd();
+        startY = null;
     });
 
     document.addEventListener('wheel', function(event) {
         if (event.deltaY > 1) {
-            document.querySelector('.container').classList.add('fade-out');
-            handleTouchOrMouseEnd();
+            fadeOutAndMoveUp();
+        } else if (event.deltaY < -1 && isNearTopOfSection2()) {
+            fadeInAndMoveDown();
         }
     });
-
-    function handleTouchOrMouseEnd() {
-        if (document.querySelector('.container').classList.contains('fade-out')) {
-            setTimeout(function() {
-                window.location.href = "/main";
-            }, 100);
-        }
-    }
 });
