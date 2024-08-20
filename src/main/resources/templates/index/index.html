@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>은솔 ♥️ 민 결혼식에 초대합니다</title>
     <meta property="og:title" content="은솔 ♥️ 민 결혼식에 초대합니다">
     <meta property="og:description" content="2025.11.08 토요일 오후 1시">
@@ -149,15 +149,14 @@
     </div>
 
     <!-- photo Dialog -->
-    <div id="imagePreviewModal" class="modal">
+    <div id="imagePreviewModal" class="modal" onclick="closeImagePreview()">
         <div class="modal-content">
-            <span class="close-button" onclick="closeImagePreview()">&times;</span>
-            <div class="modal-image-container">
+            <div id="modalImageContainer" class="modal-image-container">
                 <img id="modalImage" src="" alt="Preview">
-            </div>
-            <div class="modal-controls">
-                <button id="prevButton" onclick="changeImage(-1)">&#10094;</button>
-                <button id="nextButton" onclick="changeImage(1)">&#10095;</button>
+                <div class="modal-controls">
+                    <button id="prevButton" onclick="event.stopPropagation(); changeImage(-1)">&#10094;</button>
+                    <button id="nextButton" onclick="event.stopPropagation(); changeImage(1)">&#10095;</button>
+                </div>
             </div>
         </div>
     </div>
@@ -201,9 +200,6 @@
     <!-- Custom Dialog -->
     <div id="customDialog" class="dialog hidden">
         <div class="dialog-content">
-            <span class="close-btn" onclick="closeDialog('customDialog')">
-                <img th:src="@{/img/icons/delete.png}" height="24" width="24">
-            </span>
             <p id="customMessage"></p>
             <button onclick="confirmCustomDialog()" class="text">닫기</button>
         </div>

@@ -21,13 +21,16 @@
     font-family: 'GangWonLight';
 }
 
-body {
+body * {
     font-family: 'GangWonLight';
     user-select: none;
 }
 
 .text {
     font-size: 20px;
+    word-wrap: break-word;
+    word-break: break-all;
+    overflow-wrap: break-word;
 }
 
 .bold-text {
@@ -235,7 +238,7 @@ a {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(5px);
 }
 
@@ -243,38 +246,52 @@ a {
     position: relative;
     margin: auto;
     padding: 0;
+    width: 90%;
     max-width: 600px;
     top: 50%;
     transform: translateY(-50%);
     text-align: center;
 }
 
-.modal-image-container img {
+.modal-image-container {
+    position: relative;
     max-width: 100%;
-    height: auto;
+    max-height: 80vh;
+    overflow: hidden;
 }
 
-.close-button {
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    color: white;
-    font-size: 40px;
-    cursor: pointer;
+.modal-image-container img {
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+    object-fit: contain;
 }
 
 .modal-controls {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
     display: flex;
     justify-content: space-between;
-    margin-top: 20px;
+    transform: translateY(-50%);
+    pointer-events: none;
 }
 
 .modal-controls button {
+    margin-right: 15px;
+    width: 1px;
     background: none;
     border: none;
     color: white;
-    font-size: 40px;
+    font-size: 30px;
     cursor: pointer;
+    pointer-events: all;
+    opacity: 0.8;
+}
+
+.modal-controls button:hover {
+    opacity: 1;
 }
 
 .map-container {
@@ -352,7 +369,6 @@ a {
     justify-content: space-between;
     align-items: flex-start;
     margin-bottom: 16px;
-    padding: 16px;
     background-color: #ffffff;
     position: relative;
 }
@@ -363,15 +379,11 @@ a {
 
 .contact-buttons {
     display: flex;
-    gap: 8px;
-    position: absolute;
-    top: 16px;
-    right: 16px;
 }
 
 .contact-buttons a {
     display: inline-block;
-    padding: 10px;
+    padding-right: 10px;
     transition: background-color 0.3s ease;
     text-decoration: none;
 }
@@ -414,17 +426,17 @@ textarea {
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
-    font-family: "GangWongLight"
+    font-family: "GangWongLight";
 }
 
 textarea {
     height: 100px;
     resize: none;
-    font-family: "GangWongLight"
+    font-family: "GangWongLight";
 }
 
 input {
-    font-family: "GangWongLight"
+    font-family: "GangWongLight";
 }
 
 input::placeholder {
@@ -457,12 +469,14 @@ button {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 5px;
 }
 
 .guestbook-entry-header h2 {
     margin: 0;
-    font-size: 18px;
+    font-size: 22px;
     font-weight: bold;
+    font-family: 'GangWonBold';
 }
 
 .guestbook-entry p {
@@ -471,6 +485,7 @@ button {
 
 .guestbook-entry-actions {
     display: flex;
+    gap: 5px;
 }
 
 .guestbook-entry-actions button {
@@ -479,7 +494,7 @@ button {
     cursor: pointer;
     font-size: 20px;
     color: #ff5722;
-    padding: 8px;
+    padding: 0px;
 }
 
 .load-more-container {
@@ -513,7 +528,7 @@ button {
     background: #fff;
     padding: 50px 20px 20px 20px;
     border-radius: 10px;
-    width: 500px;
+    width: 95%;
     text-align: center;
     position: relative;
 }
@@ -556,7 +571,7 @@ button {
 .close-btn {
     position: absolute;
     top: 10px;
-    right: 10px;
+    right: 20px;
     text-align: center;
     line-height: 30px;
     font-size: 30px;
@@ -605,4 +620,10 @@ button {
 .makerHidden {
     font-size: 20px;
     font-family: 'GangWonBold';
+}
+
+@media (min-width: 768px) {
+    .dialog-content {
+        width: 500px;
+    }
 }

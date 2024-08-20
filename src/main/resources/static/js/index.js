@@ -215,10 +215,10 @@ function renderFamilyEntries(contactInfoList, containerId) {
                 <p class="text">${info.bank} ${info.account}</p>
             </div>
             <div class="contact-buttons">
-                <a href="tel:${info.phone}" title="Call">
+                <a href="${info.phone}" title="Call">
                     <img src="/img/icons/call.png" alt="Call" height="24" width="24">
                 </a>
-                <a href="sms:${info.message}" title="SMS">
+                <a href="${info.message}" title="SMS">
                     <img src="/img/icons/sms.png" alt="SMS" height="24" width="24">
                 </a>
             </div>
@@ -462,7 +462,7 @@ async function confirmDelete() {
         await apiService.deleteGuestbookEntry(currentEntryId, password);
         closeDialog('deleteDialog');
         showCustomDialog('삭제되었습니다.');
-        await fetchGuestbookEntries(); // Refresh entries after delete
+        await fetchGuestbookEntries();
     } catch (error) {
         showCustomDialog('비밀번호가 틀렸습니다.');
     }
@@ -484,7 +484,7 @@ async function confirmEdit() {
         await apiService.updateGuestbookEntry(updatedEntry);
         closeDialog('editDialog');
         showCustomDialog('수정되었습니다.');
-        await fetchGuestbookEntries(); // Refresh entries after edit
+        await fetchGuestbookEntries();
     } catch (error) {
         showCustomDialog('비밀번호가 틀렸습니다.');
     }
@@ -526,13 +526,6 @@ function shareKakaoLink() {
                         webUrl: 'https://eungming.com/',
                     },
                 },
-                {
-                    title: '위치 보기',
-                    link: {
-                        mobileWebUrl: 'https://naver.me/x7nc6nQx',
-                        webUrl: 'https://naver.me/x7nc6nQx',
-                    },
-                },
             ],
         });
     } else {
@@ -542,7 +535,7 @@ function shareKakaoLink() {
 
 function shareLink(url) {
     navigator.clipboard.writeText(url).then(() => {
-        alert('링크가 복사되었습니다.');
+        showCustomDialog('링크가 복사되었습니다.');
     }).catch((error) => {
         console.error('Failed to copy link:', error);
     });
@@ -556,15 +549,14 @@ function closeDialog(dialogId) {
     document.getElementById(dialogId).classList.add('hidden');
 }
 
-function confirmEdit() {
-    alert('수정되었습니다.');
-    closeDialog('editDialog');
-}
-
 document.addEventListener('contextmenu', function (e) {
     e.preventDefault();
 });
 
 document.addEventListener('copy', function (e) {
+    e.preventDefault();
+});
+
+document.addEventListener('gesturestart', function (e) {
     e.preventDefault();
 });
