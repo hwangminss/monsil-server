@@ -22,7 +22,7 @@ class GuestBookApiHandler (
     suspend fun add(request: ServerRequest): ServerResponse {
         val gb = request.bodyToMono(GuestBookDTO::class.java).awaitSingleOrNull()
 
-        if (gb == null) {
+        if (gb == null || gb.password == "") {
             log.warn("GuestBookDTO가 null입니다")
             return ServerResponse.badRequest().bodyValueAndAwait("GuestBookDTO가 없거나 유효하지 않습니다")
         }
@@ -57,16 +57,16 @@ class GuestBookApiHandler (
     }
 
     suspend fun update(request: ServerRequest): ServerResponse {
-        val gb = request.bodyToMono(GuestBookUpdateDTO::class.java).awaitSingle()
+        val gb = request.bodyToMono(GuestBookUpdateDTO::class.java).awaitSingleOrNull()
 
-        if (gb == null) {
+        if (gb == null || gb.password == "") {
             log.warn("GuestBookUpdateDTO null입니다")
             return ServerResponse.badRequest().bodyValueAndAwait("GuestBookUpdateDTO 없거나 유효하지 않습니다")
         }
 
         return try {
             val result = guestBookService.update(gb)
-            log.info("GuestBookDTO가 성공적으로 추가되었습니다: $gb")
+            log.info("GuestBookDTO가 성공적으로 수정되었습니다: $gb")
             ServerResponse.ok().bodyValueAndAwait(result)
         } catch (e: Exception) {
             log.error("서비스에 GuestBookDTO를 추가하는 중 오류 발생", e)
@@ -78,7 +78,7 @@ class GuestBookApiHandler (
     suspend fun delete(request: ServerRequest): ServerResponse {
         val gb = request.bodyToMono(GuestBookDeleteDTO::class.java).awaitSingle()
 
-        if (gb == null) {
+        if (gb == null || gb.password == "") {
             log.warn("GuestBookUpdateDTO null입니다")
             return ServerResponse.badRequest().bodyValueAndAwait("GuestBookUpdateDTO 없거나 유효하지 않습니다")
         }

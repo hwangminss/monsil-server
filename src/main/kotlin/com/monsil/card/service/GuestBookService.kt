@@ -36,7 +36,7 @@ class GuestBookService(
             .filter { it.deletedAt == null }
             .flatMap { entity ->
 
-                if (!gb.password.isNullOrEmpty()) {
+                if (gb.password.isNotEmpty()) {
                     val isMatch = PasswordEncoderImpl.matches(gb.password, entity.password)
                     if (!isMatch) {
                         throw CustomException(ErrorCode.NOT_EQUAL_PASSWORD)
@@ -55,7 +55,7 @@ class GuestBookService(
             .filter { it.deletedAt == null }
             .flatMap { entity ->
 
-                if (!gb.password.isNullOrEmpty()) {
+                if (gb.password.isNotEmpty()) {
                     val isMatch = PasswordEncoderImpl.matches(gb.password, entity.password)
                     if (!isMatch) {
                         throw CustomException(ErrorCode.NOT_EQUAL_PASSWORD)
