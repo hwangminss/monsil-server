@@ -1,9 +1,3 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 @font-face {
     font-family: 'GangWonLight';
     src: url('/font/GangWon/GangWonMoDooLight.otf') format('opentype'),
@@ -20,6 +14,13 @@
     font-weight: 600;
 }
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'GangWonLight';
+}
+
 body {
     font-family: 'GangWonLight';
 }
@@ -33,6 +34,10 @@ body, html {
     width: 100%;
     overflow-x: hidden;
     scroll-behavior: smooth;
+}
+
+a {
+    text-decoration: none;
 }
 
 .container {
@@ -77,7 +82,7 @@ body, html {
     width: 600px;
     height: 100%;
     background-image: url('/img/1234.JPG');
-    background-size: contain;
+    background-size: cover;
     background-position: center;
     transform: translateX(-50%);
     z-index: 1;
@@ -90,11 +95,11 @@ body, html {
 }
 
 .header {
-    padding: 20px;
+    padding: 30px;
 }
 
 .footer {
-    padding-bottom: 20px;
+    padding-bottom: 40px;
     justify-content: center;
     flex-direction: column;
 }
@@ -104,15 +109,24 @@ body, html {
     color: white;
 }
 
-.section2 {
+.s2 {
     position: relative;
     z-index: 1;
     font-size: 20px;
-    text-align: center;
-    padding: 30px 0 150px 0;
     }
 
-.invitation {
+.section {
+        max-width: 600px;
+        text-align: center;
+        padding: 30px 20px 150px 20px;
+        margin: 0 auto;
+    }
+
+.s4 {
+    font-size: 20px;
+    }
+
+.title {
     color: #61c5fa;
     font-family: 'GangWonBold';
     font-size: 26px;
@@ -125,18 +139,6 @@ body, html {
 
 .separator {
     margin: 20px 0;
-}
-
-.section3 {
-    padding: 16px;
-    text-align: center;
-    font-family: 'GangWonLight';
-    padding-bottom:150px;
-}
-
-.countdown-container {
-    max-width: 600px;
-    margin: 0 auto;
 }
 
 .countdown-title {
@@ -155,7 +157,7 @@ body, html {
 .time-block {
     width: 60px;
     height: 80px;
-    background-color: #e0e0e0;
+    background-color: #E7E9ED;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -171,7 +173,7 @@ body, html {
 
 .time-label {
     font-size: 16px;
-    color: #666;
+    color: #AFB3BC;
 }
 
 .time-separator {
@@ -193,4 +195,358 @@ body, html {
 .highlight {
     color: red;
     font-weight: bold;
+}
+
+.gallery-container {
+    display: flex;
+    justify-content: center;
+    max-width: 600px;
+    margin: 16px auto;
+    overflow-x: auto;
+}
+
+.gallery-item {
+    margin: 0 8px;
+}
+
+.gallery-item img {
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    position: relative;
+    margin: auto;
+    padding: 0;
+    max-width: 600px;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+}
+
+.modal-image-container img {
+    max-width: 100%;
+    height: auto;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    color: white;
+    font-size: 40px;
+    cursor: pointer;
+}
+
+.modal-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.modal-controls button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 40px;
+    cursor: pointer;
+}
+
+.map-container {
+    width: 100%;
+    height: 300px;
+}
+
+.map-link {
+    display: block;
+    width: 100%;
+    height: 50px;
+    background-color: #F4F5F8;
+    text-align: center;
+    line-height: 50px;
+    text-decoration: none;
+    margin-bottom: 24px;
+    font-size: 20px;
+}
+
+.location-details {
+    text-align: left;
+}
+
+.location-details p {
+    margin: 10px 0;
+    font-size: 20px;
+    line-height: 1.5;
+}
+.expansion-tile1 {
+ background-color: #F4F5F8;
+ border-top-left-radius: 10px;
+ border-top-right-radius: 10px;
+ overflow: hidden;
+}
+
+.expansion-tile2 {
+ background-color: #F4F5F8;
+ border-bottom-left-radius: 10px;
+ border-bottom-right-radius: 10px;
+ overflow: hidden;
+}
+
+.expansion-header {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ padding: 25px;
+ cursor: pointer;
+ font-size: 20px;
+ font-weight: bold;
+ background-color: #F4F5F8;
+}
+
+.arrow {
+ font-size: 16px;
+ transform: rotate(0deg);
+ transition: transform 0.3s ease;
+}
+
+.expansion-header.expanded .arrow {
+ transform: rotate(180deg);
+}
+
+.expansion-content {
+ text-align: left;
+ padding: 25px;
+ background-color: #ffffff;
+ border: solid 1px #eeeeee;
+ display: none;
+}
+
+.contact-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+    padding: 16px;
+    background-color: #ffffff;
+    position: relative;
+}
+
+.contact-info-content {
+    flex: 1;
+}
+
+.contact-buttons {
+    display: flex;
+    gap: 8px;
+    position: absolute;
+    top: 16px;
+    right: 16px;
+}
+
+.contact-buttons a {
+    display: inline-block;
+    padding: 10px;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+}
+
+.payment-options {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+.payment-option {
+    flex: 1;
+    padding: 12px 16px;
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #ffffff;
+}
+
+.s8{
+    background-color: #F4F5F8;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+}
+
+input[type="text"],
+input[type="password"],
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-family: "GangWongLight"
+}
+
+textarea {
+    height: 100px;
+    resize: none;
+    font-family: "GangWongLight"
+}
+
+input {
+    font-family: "GangWongLight"
+}
+
+input::placeholder {
+  font-family: "GangWongLight";
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #000000;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: "GangWongLight"
+}
+
+.guestbook-entries {
+    margin-top: 20px;
+}
+
+.guestbook-entry {
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+    background-color: #ffffff;
+}
+
+.guestbook-entry-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.guestbook-entry-header h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.guestbook-entry p {
+    text-align: left;
+}
+
+.guestbook-entry-actions {
+    display: flex;
+}
+
+.guestbook-entry-actions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    color: #ff5722;
+    padding: 8px;
+}
+
+.load-more-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.load-more-container button {
+    font-family: "GangWonLight";
+    background-color: #F4F5F8;
+    border: solid 1px #9DA0A7;
+    color: #000000;
+}
+
+
+.dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.dialog-content {
+    background: #fff;
+    padding: 50px 20px 20px 20px;
+    border-radius: 10px;
+    width: 500px;
+    text-align: center;
+    position: relative;
+}
+
+.dialog-field {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.dialog label {
+    display: block;
+    text-align: left;
+}
+
+.dialog input,
+.dialog textarea {
+    font-family: 'GangWonLight';
+    width: calc(100% - 80px);
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.dialog textarea {
+    height: 60px;
+}
+
+.dialog button {
+    font-family: 'GangWonLight';
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #61c5fa;
+    color: #fff;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    text-align: center;
+    line-height: 30px;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
 }

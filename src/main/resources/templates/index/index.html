@@ -16,26 +16,26 @@
     <div class="background-image"></div>
     <div class="overlay-content">
         <div class="header">
-            <span class="text-large">LEE EUNSOL</span>
-            <span class="text-large">HWANG MIN</span>
+            <span class="text-large bold-text">LEE EUNSOL</span>
+            <span class="text-large bold-text">HWANG MIN</span>
         </div>
         <div class="footer">
-            <div class="text-large">2025.11.08. SAT 13:00</div>
-            <div class="text-large">정동제일교회 본당</div>
+            <div class="text-large bold-text">2025.11.08. SAT 13:00</div><br>
+            <div class="text-large bold-text">정동제일교회 본당</div>
         </div>
     </div>
 </div>
-<div class="section2">
-        <p class="invitation">Invitation</p><br><br>
+<div class="section s2">
+        <p class="title">Invitation</p><br><br>
         <img src="/img/leftQuotes.png" alt="Left Quotes" class="quote">
         <span class="text"> 저희 이벤트에 초대합니다<br>즐거운 저녁을 함께하세요.<br>여러분을 뵙기를 기대합니다! </span>
         <img src="/img/rightQuotes.png" alt="Right Quotes" class="quote">
         <div class="separator">-</div>
         <span class="text">황현기 · 박인숙</span> 의 아들 <span class="text">황민<br>이완규 · 홍순자</span> 의 딸 <span class="text">이은솔</span>
-    </div>
-<div class="section3">
+</div>
+<div class="section s3">
     <div class="countdown-container">
-        <h2 class="countdown-title">Save the Date</h2>
+        <h2 class="countdown-title">Save the Date</h2><br>
         <div class="countdown-timer">
             <div class="time-block">
                 <span class="time-number" id="days">0</span>
@@ -58,11 +58,142 @@
             </div>
         </div>
         <p class="countdown-text" id="countdown-text">은솔 ♥️ 민의 결혼식이 남았습니다.</p>
-    </div></div>
-<div class="section-4">
-    <div>Section 4 Content</div>
+    </div>
 </div>
-<!-- Add more sections as needed -->
+<div class="section s4">
+    <p class="title">Wedding Information</p><br><br>
+    <span class="text">2025년 11월 8일 토요일 오후 1시<br>정동제일교회 본관 2층 예배당</span>
+</div>
+<div class="section s5">
+    <div class="gallery">
+        <h2 class="title">Gallery</h2><br>
+        <div class="gallery-container">
+            <div class="gallery-item" onclick="showImagePreview(0)">
+                <img src="/img/background.png" alt="Image 1">
+            </div>
+            <div class="gallery-item" onclick="showImagePreview(1)">
+                <img src="/img/123.png" alt="Image 2">
+            </div>
+            <div class="gallery-item" onclick="showImagePreview(2)">
+                <img src="/img/images.jpeg" alt="Image 3">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section s6">
+    <div class="location-section">
+        <h2 class="title">Location</h2><br><br>
+        <div id="map" class="map-container"></div>
+        <a href="https://naver.me/x7nc6nQx" target="_blank">
+            <div class="map-link">
+                네이버지도로 보기
+            </div>
+        </a>
+        <div class="location-details">
+            <p>🧭 <strong>주소</strong><br>
+                서울시 중구 정동길 46</p>
+            <p>🚊 <strong>지하철 이용시</strong><br>
+                1,2호선 시청역 10번 출구, 5호선 서대문역 5번 출구</p>
+            <p>🚘 <strong>주차 안내</strong><br>
+                배재?화? 빌딩 주차장</p>
+        </div>
+    </div>
+</div>
+<div class="section s7">
+    <div class="title">마음 전하실 곳</div><br><br>
+    <div class="expansion-tile1">
+        <div class="expansion-header" onclick="toggleExpansion('groom')">
+            <span>신랑 측</span>
+            <span class="arrow"><img src="/img/icons/arrow.png" alt="Arrow" height="20" width="20"></span>
+        </div>
+        <div id="groom-content" class="expansion-content"></div>
+    </div>
+
+    <div class="expansion-tile2">
+        <div class="expansion-header" onclick="toggleExpansion('bride')">
+            <span>신부 측</span>
+            <span class="arrow"><img src="/img/icons/arrow.png" alt="Arrow" height="20" width="20"></span>
+        </div>
+        <div id="bride-content" class="expansion-content"></div>
+    </div>
+</div>
+<div class="section s8">
+<h1 class="title">Guest Book</h1><br><br>
+<div class="form-container">
+    <input type="text" id="name" placeholder="이름" maxlength="10"><br>
+    <textarea id="detail" placeholder="축하메시지" maxlength="90"></textarea><br>
+    <input type="password" id="password" placeholder="비밀번호" maxlength="20"><br>
+    <button id="submitButton">축하메시지 남기기</button>
+</div>
+<div id="guestbookEntries" class="guestbook-entries">
+</div>
+<div id="loadMoreContainer" class="load-more-container">
+    <button id="loadMoreButton">더보기</button>
+    <button id="showAllButton">전체보기</button>
+</div>
+</div>
+
+<!-- photo Dialog -->
+<div id="imagePreviewModal" class="modal">
+    <div class="modal-content">
+        <span class="close-button" onclick="closeImagePreview()">&times;</span>
+        <div class="modal-image-container">
+            <img id="modalImage" src="" alt="Preview">
+        </div>
+        <div class="modal-controls">
+            <button id="prevButton" onclick="changeImage(-1)">&#10094;</button>
+            <button id="nextButton" onclick="changeImage(1)">&#10095;</button>
+        </div>
+    </div>
+</div>
+<!-- Delete Dialog -->
+<div id="deleteDialog" class="dialog hidden">
+    <div class="dialog-content">
+        <span class="close-btn" onclick="closeDialog('deleteDialog')">
+            <img th:src="@{/img/icons/delete.png}" height="24" width="24">
+        </span>
+        <div class="dialog-field">
+        <p>비밀번호</p>
+        <input type="password" id="deletePassword" placeholder="비밀번호">
+        </div>
+        <button onclick="confirmDelete()">삭제하기</button>
+    </div>
+</div>
+
+<!-- Edit Dialog -->
+<div id="editDialog" class="dialog hidden">
+    <div class="dialog-content">
+        <span class="close-btn" onclick="closeDialog('editDialog')">
+            <img th:src="@{/img/icons/delete.png}" height="24" width="24">
+        </span>
+        <div class="dialog-field">
+            <label for="editName">작성자</label>
+            <input type="text" id="editName" placeholder="작성자">
+        </div>
+        <div class="dialog-field">
+            <label for="editDetail">내용</label>
+            <textarea id="editDetail" placeholder="내용"></textarea>
+        </div>
+        <div class="dialog-field">
+            <label for="editPassword">비밀번호</label>
+            <input type="password" id="editPassword" placeholder="비밀번호">
+        </div>
+        <button onclick="confirmEdit()">수정하기</button>
+    </div>
+</div>
+
+
+<!-- Custom Dialog -->
+<div id="customDialog" class="dialog hidden">
+    <div class="dialog-content">
+        <span class="close-btn" onclick="closeDialog('customDialog')">
+            <img th:src="@{/img/icons/delete.png}" height="24" width="24">
+        </span>
+        <p id="customMessage"></p>
+        <button onclick="confirmCustomDialog()">닫기</button>
+    </div>
+</div>
 </body>
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=2il4t9ay84"></script>
 <script th:src="@{/js/index.js}"></script>
 </html>
