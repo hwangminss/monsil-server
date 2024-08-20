@@ -1,5 +1,5 @@
 //section1~4
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     let startY;
     let isDragging = false;
     let container = document.querySelector('.container');
@@ -26,11 +26,11 @@ document.addEventListener('DOMContentLoaded', function() {
         return rect.top >= 0;
     }
 
-    document.addEventListener('touchstart', function(event) {
+    document.addEventListener('touchstart', function (event) {
         startY = event.touches[0].clientY;
     }, { passive: true });
 
-    document.addEventListener('touchmove', function(event) {
+    document.addEventListener('touchmove', function (event) {
         let currentY = event.touches[0].clientY;
 
         if (startY && startY - currentY > 1) {
@@ -40,16 +40,16 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }, { passive: true });
 
-    document.addEventListener('touchend', function(event) {
+    document.addEventListener('touchend', function (event) {
         startY = null;
     }, { passive: true });
 
-    document.addEventListener('mousedown', function(event) {
+    document.addEventListener('mousedown', function (event) {
         startY = event.clientY;
         isDragging = true;
     });
 
-    document.addEventListener('mousemove', function(event) {
+    document.addEventListener('mousemove', function (event) {
         if (!isDragging) return;
         let currentY = event.clientY;
 
@@ -60,12 +60,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    document.addEventListener('mouseup', function(event) {
+    document.addEventListener('mouseup', function (event) {
         isDragging = false;
         startY = null;
     });
 
-    document.addEventListener('wheel', function(event) {
+    document.addEventListener('wheel', function (event) {
         if (event.deltaY > 1) {
             fadeOutAndMoveUp();
         } else if (event.deltaY < -1 && isNearTopOfSection2()) {
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 //section4
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const targetDate = new Date('2025-11-08T13:00:00');
 
     function updateCountdown() {
@@ -111,10 +111,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 //section5
 const images = [
-        '/img/background.png',
-        '/img/123.png',
-        '/img/images.jpeg'
-    ];
+    '/img/background.png',
+    '/img/123.png',
+    '/img/images.jpeg'
+];
 
 let currentIndex = 0;
 let startX = 0;
@@ -167,23 +167,23 @@ function handleTouchMove(event) {
 
 //section6
 function initMap() {
-var map = new naver.maps.Map('map', {
-  center: new naver.maps.LatLng(37.565455, 126.972344),
-  zoom: 17,
-  scrollWheel: false,
-  draggable: false,
-  pinchZoom: false,
-  disableDoubleClickZoom: true
-});
+    var map = new naver.maps.Map('map', {
+        center: new naver.maps.LatLng(37.565455, 126.972344),
+        zoom: 17,
+        scrollWheel: false,
+        draggable: false,
+        pinchZoom: false,
+        disableDoubleClickZoom: true
+    });
 
-var marker = new naver.maps.Marker({
-  position: new naver.maps.LatLng(37.565495, 126.972394),
-  map: map
-});
+    var marker = new naver.maps.Marker({
+        position: new naver.maps.LatLng(37.565495, 126.972394),
+        map: map
+    });
 }
 
-window.onload = function() {
-initMap();
+window.onload = function () {
+    initMap();
 };
 
 //section7
@@ -373,7 +373,7 @@ function updateLoadMoreVisibility() {
 }
 
 const apiService = {
-    deleteGuestbookEntry: async function(id, password) {
+    deleteGuestbookEntry: async function (id, password) {
         try {
             const response = await fetch('/api/guestbook/delete', {
                 method: 'POST',
@@ -396,7 +396,7 @@ const apiService = {
         }
     },
 
-    updateGuestbookEntry: async function(updatedEntry) {
+    updateGuestbookEntry: async function (updatedEntry) {
         try {
             const response = await fetch('/api/guestbook/update', {
                 method: 'POST',

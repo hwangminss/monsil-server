@@ -8,7 +8,11 @@ body {
     font-family: Arial, sans-serif;
 }
 
-h1, table, th, td, input {
+h1,
+table,
+th,
+td,
+input {
     text-align: center;
 }
 
@@ -22,11 +26,14 @@ table {
     margin: 20px 0;
 }
 
-table, th, td {
+table,
+th,
+td {
     border: 1px solid #ccc;
 }
 
-th, td {
+th,
+td {
     padding: 8px;
 }
 
@@ -47,11 +54,14 @@ footer {
 }
 
 input {
-    width: 100%; /* 반응형을 위한 100% 폭 설정 */
-    max-width: 100%; /* 최대 폭을 100%로 설정 */
+    width: 100%;
+    /* 반응형을 위한 100% 폭 설정 */
+    max-width: 100%;
+    /* 최대 폭을 100%로 설정 */
     padding: 5px;
     text-align: center;
-    box-sizing: border-box; /* 패딩이 폭에 포함되도록 설정 */
+    box-sizing: border-box;
+    /* 패딩이 폭에 포함되도록 설정 */
 }
 
 button {
@@ -66,7 +76,8 @@ button {
     cursor: pointer;
 }
 
-/* 반응형 디자인 */@media (max-width: 768px) {
+/* 반응형 디자인 */
+@media (max-width: 768px) {
     body {
         padding: 0 10px;
     }
@@ -100,7 +111,8 @@ button {
         display: none;
     }
 
-    tbody, tr {
+    tbody,
+    tr {
         display: block;
         width: 100%;
         margin-bottom: 10px;
@@ -111,13 +123,15 @@ button {
         background-color: #fff;
         position: relative;
         padding: 10px;
-        box-sizing: border-box; /* Box-sizing 추가 */
+        box-sizing: border-box;
+        /* Box-sizing 추가 */
     }
 
     td {
         display: block;
         width: 100%;
-        box-sizing: border-box; /* Box-sizing 추가 */
+        box-sizing: border-box;
+        /* Box-sizing 추가 */
         border-bottom: 1px solid #ccc;
         text-align: left;
     }
@@ -130,15 +144,21 @@ button {
         margin-right: 10px;
     }
 
-input {
-    width: 100%; /* 반응형을 위한 100% 폭 설정 */
-    max-width: 100%; /* 최대 폭을 100%로 설정 */
-    padding: 5px;
-    text-align: center; /* 텍스트를 가운데 정렬 */
-    box-sizing: border-box; /* 패딩이 폭에 포함되도록 설정 */
-    margin: 0 auto; /* input 필드를 가운데 정렬 */
-    display: block; /* 블록 요소로 설정 */
-}
+    input {
+        width: 100%;
+        /* 반응형을 위한 100% 폭 설정 */
+        max-width: 100%;
+        /* 최대 폭을 100%로 설정 */
+        padding: 5px;
+        text-align: center;
+        /* 텍스트를 가운데 정렬 */
+        box-sizing: border-box;
+        /* 패딩이 폭에 포함되도록 설정 */
+        margin: 0 auto;
+        /* input 필드를 가운데 정렬 */
+        display: block;
+        /* 블록 요소로 설정 */
+    }
 
 
 

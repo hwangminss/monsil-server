@@ -1,16 +1,16 @@
 @font-face {
     font-family: 'GangWonLight';
     src: url('/font/GangWon/GangWonMoDooLight.otf') format('opentype'),
-         url('/font/GangWon/GangWonMoDooLight.ttf') format('truetype'),
-         url('/font/GangWon/GangwonEdu_OTFLightA.woff') format('woff');
+        url('/font/GangWon/GangWonMoDooLight.ttf') format('truetype'),
+        url('/font/GangWon/GangwonEdu_OTFLightA.woff') format('woff');
     font-weight: 400;
 }
 
 @font-face {
     font-family: 'GangWonBold';
     src: url('/font/GangWon/GangWonMoDooBold.otf') format('opentype'),
-         url('/font/GangWon/GangWonMoDooBold.ttf') format('truetype'),
-         url('/font/GangWon/GangwonEdu_OTFBoldA.woff') format('woff');
+        url('/font/GangWon/GangWonMoDooBold.ttf') format('truetype'),
+        url('/font/GangWon/GangwonEdu_OTFBoldA.woff') format('woff');
     font-weight: 600;
 }
 
@@ -29,7 +29,8 @@ body {
     font-family: 'GangWonBold';
 }
 
-body, html {
+body,
+html {
     height: 100%;
     width: 100%;
     overflow-x: hidden;
@@ -88,7 +89,8 @@ a {
     z-index: 1;
 }
 
-.header, .footer {
+.header,
+.footer {
     text-align: center;
     display: flex;
     justify-content: space-between;
@@ -113,18 +115,18 @@ a {
     position: relative;
     z-index: 1;
     font-size: 20px;
-    }
+}
 
 .section {
-        max-width: 600px;
-        text-align: center;
-        padding: 30px 20px 150px 20px;
-        margin: 0 auto;
-    }
+    max-width: 600px;
+    text-align: center;
+    padding: 30px 20px 150px 20px;
+    margin: 0 auto;
+}
 
 .s4 {
     font-size: 20px;
-    }
+}
 
 .title {
     color: #61c5fa;
@@ -291,47 +293,48 @@ a {
     font-size: 20px;
     line-height: 1.5;
 }
+
 .expansion-tile1 {
- background-color: #F4F5F8;
- border-top-left-radius: 10px;
- border-top-right-radius: 10px;
- overflow: hidden;
+    background-color: #F4F5F8;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    overflow: hidden;
 }
 
 .expansion-tile2 {
- background-color: #F4F5F8;
- border-bottom-left-radius: 10px;
- border-bottom-right-radius: 10px;
- overflow: hidden;
+    background-color: #F4F5F8;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    overflow: hidden;
 }
 
 .expansion-header {
- display: flex;
- justify-content: space-between;
- align-items: center;
- padding: 25px;
- cursor: pointer;
- font-size: 20px;
- font-weight: bold;
- background-color: #F4F5F8;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #F4F5F8;
 }
 
 .arrow {
- font-size: 16px;
- transform: rotate(0deg);
- transition: transform 0.3s ease;
+    font-size: 16px;
+    transform: rotate(0deg);
+    transition: transform 0.3s ease;
 }
 
 .expansion-header.expanded .arrow {
- transform: rotate(180deg);
+    transform: rotate(180deg);
 }
 
 .expansion-content {
- text-align: left;
- padding: 25px;
- background-color: #ffffff;
- border: solid 1px #eeeeee;
- display: none;
+    text-align: left;
+    padding: 25px;
+    background-color: #ffffff;
+    border: solid 1px #eeeeee;
+    display: none;
 }
 
 .contact-info {
@@ -380,7 +383,7 @@ a {
     background-color: #ffffff;
 }
 
-.s8{
+.s8 {
     background-color: #F4F5F8;
 }
 
@@ -411,7 +414,7 @@ input {
 }
 
 input::placeholder {
-  font-family: "GangWongLight";
+    font-family: "GangWongLight";
 }
 
 button {
