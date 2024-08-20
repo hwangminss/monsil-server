@@ -120,20 +120,32 @@
             <div id="bride-content" class="expansion-content"></div>
         </div>
     </div>
-    <div class="section s8">
+    <div class="s8">
         <h1 class="title">Guest Book</h1><br><br>
         <div class="form-container">
-            <input type="text" id="name" placeholder="이름" maxlength="10"><br>
-            <textarea id="detail" placeholder="축하메시지" maxlength="90"></textarea><br>
-            <input type="password" id="password" placeholder="비밀번호" maxlength="20"><br>
-            <button id="submitButton">축하메시지 남기기</button>
+            <input type="text" id="name" class="text" placeholder="이름" maxlength="10" style="font-family: 'GangWonLight';"><br>
+            <textarea id="detail" class="text" placeholder="축하메시지" maxlength="90" style="font-family: 'GangWonLight';"></textarea><br>
+            <input type="password" id="password" class="text" placeholder="비밀번호" maxlength="20" style="font-family: 'GangWonLight';"><br>
+            <button id="submitButton" class="text">축하메시지 남기기</button>
         </div>
         <div id="guestbookEntries" class="guestbook-entries">
         </div>
         <div id="loadMoreContainer" class="load-more-container">
-            <button id="loadMoreButton">더보기</button>
-            <button id="showAllButton">전체보기</button>
+            <button id="loadMoreButton" class="text">더보기</button>
+            <button id="showAllButton" class="text">전체보기</button>
         </div>
+    </div>
+    <div class="s9">
+        <button onclick="shareKakaoLink()">
+            <img src="/img/kakao.png" alt="Share via Kakao" />
+        </button>
+        <span class="divider">|</span>
+        <button onclick="copyLink()">
+            <img src="/img/share.png" alt="Copy Link" />
+        </button>
+    </div>
+    <div class="s10">
+        <p class="makerHidden">MINCARD</p>
     </div>
 
     <!-- photo Dialog -->
@@ -156,10 +168,10 @@
                 <img th:src="@{/img/icons/delete.png}" height="24" width="24">
             </span>
             <div class="dialog-field">
-                <p>비밀번호</p>
-                <input type="password" id="deletePassword" placeholder="비밀번호">
+                <p class="text">비밀번호</p>
+                <input class="text" type="password" id="deletePassword" placeholder="비밀번호">
             </div>
-            <button onclick="confirmDelete()">삭제하기</button>
+            <button onclick="confirmDelete()" class="text">삭제하기</button>
         </div>
     </div>
 
@@ -170,18 +182,18 @@
                 <img th:src="@{/img/icons/delete.png}" height="24" width="24">
             </span>
             <div class="dialog-field">
-                <label for="editName">작성자</label>
-                <input type="text" id="editName" placeholder="작성자">
+                <label class="text" for="editName">작성자</label>
+                <input class="text" type="text" id="editName" placeholder="작성자">
             </div>
             <div class="dialog-field">
-                <label for="editDetail">내용</label>
-                <textarea id="editDetail" placeholder="내용"></textarea>
+                <label class="text" for="editDetail">내용</label>
+                <textarea class="text" id="editDetail" placeholder="내용"></textarea>
             </div>
             <div class="dialog-field">
-                <label for="editPassword">비밀번호</label>
-                <input type="password" id="editPassword" placeholder="비밀번호">
+                <label class="text" for="editPassword">비밀번호</label>
+                <input class="text" type="password" id="editPassword" placeholder="비밀번호">
             </div>
-            <button onclick="confirmEdit()">수정하기</button>
+            <button onclick="confirmEdit()" class="text">수정하기</button>
         </div>
     </div>
 
@@ -193,11 +205,12 @@
                 <img th:src="@{/img/icons/delete.png}" height="24" width="24">
             </span>
             <p id="customMessage"></p>
-            <button onclick="confirmCustomDialog()">닫기</button>
+            <button onclick="confirmCustomDialog()" class="text">닫기</button>
         </div>
     </div>
 </body>
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=2il4t9ay84"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script th:src="@{/js/index.js}"></script>
 
 </html>

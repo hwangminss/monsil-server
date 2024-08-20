@@ -211,8 +211,8 @@ function renderFamilyEntries(contactInfoList, containerId) {
     container.innerHTML = contactInfoList.map(info => `
         <div class="contact-info">
             <div class="contact-info-content">
-                <p><strong>${getRoleText(info.role)} ${info.name}</strong></p>
-                <p>${info.bank} ${info.account}</p>
+                <p class="text"><strong>${getRoleText(info.role)} ${info.name}</strong></p>
+                <p class="text">${info.bank} ${info.account}</p>
             </div>
             <div class="contact-buttons">
                 <a href="tel:${info.phone}" title="Call">
@@ -300,7 +300,7 @@ function renderGuestbookEntries() {
     container.innerHTML = guestbookEntries.slice(0, displayCount).map(entry => `
         <div class="guestbook-entry">
             <div class="guestbook-entry-header">
-                <h2>${entry.name}</h2>
+                <h2 class="text-medium">${entry.name}</h2>
                 <div class="guestbook-entry-actions">
                     <button onclick="editEntry(${entry.id})">
                         <img src="/img/icons/edit.png" height="24" width="24">
@@ -310,7 +310,7 @@ function renderGuestbookEntries() {
                     </button>
                 </div>
             </div>
-            <p>${entry.detail}</p>
+            <p class="text">${entry.detail}</p>
         </div>
     `).join('');
 }
@@ -493,3 +493,78 @@ async function confirmEdit() {
 function confirmCustomDialog() {
     closeDialog('customDialog');
 }
+
+//section9
+function initKakao() {
+    if (!Kakao.isInitialized()) {
+        Kakao.init('1baf3ca70ad3c7cbb8f681ec7cfaa7d7');
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    initKakao();
+});
+
+function shareKakaoLink() {
+    if (Kakao.isInitialized()) {
+        Kakao.Link.sendDefault({
+            objectType: 'feed',
+            content: {
+                title: '은솔 ♥️ 민 결혼식에 초대합니다',
+                description: '2025.11.08 토요일 오후 1시',
+                imageUrl: 'https://eungming.com/img/1234.JPG',
+                link: {
+                    mobileWebUrl: 'https://eungming.com/',
+                    webUrl: 'https://eungming.com/',
+                },
+            },
+            buttons: [
+                {
+                    title: '자세히 보기',
+                    link: {
+                        mobileWebUrl: 'https://eungming.com/',
+                        webUrl: 'https://eungming.com/',
+                    },
+                },
+                {
+                    title: '위치 보기',
+                    link: {
+                        mobileWebUrl: 'https://naver.me/x7nc6nQx',
+                        webUrl: 'https://naver.me/x7nc6nQx',
+                    },
+                },
+            ],
+        });
+    } else {
+        console.error('Kakao SDK is not initialized.');
+    }
+}
+
+function shareLink(url) {
+    navigator.clipboard.writeText(url).then(() => {
+        alert('링크가 복사되었습니다.');
+    }).catch((error) => {
+        console.error('Failed to copy link:', error);
+    });
+}
+
+function copyLink() {
+    shareLink('https://www.eungming.com');
+}
+
+function closeDialog(dialogId) {
+    document.getElementById(dialogId).classList.add('hidden');
+}
+
+function confirmEdit() {
+    alert('수정되었습니다.');
+    closeDialog('editDialog');
+}
+
+document.addEventListener('contextmenu', function (e) {
+    e.preventDefault();
+});
+
+document.addEventListener('copy', function (e) {
+    e.preventDefault();
+});
