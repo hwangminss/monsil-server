@@ -622,13 +622,13 @@ button {
 }
 
 .maker {
-    padding: 9%x;
+    padding: 9%;
     font-size: 20px;
     font-family: 'GangWonBold';
 }
 
 .makerHidden {
-    padding: 7%x;
+    padding: 7%;
     color: white;
     font-size: 20px;
     font-family: 'GangWonBold';
