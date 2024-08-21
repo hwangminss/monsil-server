@@ -2,9 +2,9 @@ $(document).ready(function () {
     $(".edit-button").click(function () {
         var $row = $(this).closest("tr");
 
-        var id = $row.find("td:first").text().trim();
-        var bank = $row.find(".bank").val(); // 은행명
-        var account = $row.find(".account").val(); // 계좌번호
+        var id = $(this).data("id");
+        var bank = $row.find(".bank").val();
+        var account = $row.find(".account").val();
         var kakao = $row.find(".kakao").val();
         var phone = $row.find(".phone").val();
 

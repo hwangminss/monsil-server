@@ -8,19 +8,22 @@ import com.monsil.card.repository.family.FamilyEntity
 import com.monsil.card.repository.family.FamilyRepository
 import com.monsil.card.repository.manager.ManagerRepository
 import com.monsil.card.service.FamilyService
+import com.monsil.card.service.GuestBookService
 import com.monsil.card.service.ManageService
 import kotlinx.coroutines.reactor.awaitSingle
 import kotlinx.coroutines.reactor.awaitSingleOrNull
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.server.ServerRequest
 import org.springframework.web.reactive.function.server.ServerResponse
+import java.time.format.DateTimeFormatter
 
 @Component
 class ViewHandler(
     private val familyService: FamilyService,
     private val familyRepository: FamilyRepository,
     private val managerService: ManageService,
-    private val managerRepository: ManagerRepository
+    private val managerRepository: ManagerRepository,
+    private val guestbookServicde: GuestBookService
 ) : SessionHandler {
     companion object : MonSilLog
 
@@ -52,6 +55,17 @@ class ViewHandler(
             mapOf("userList" to roleData)
         ).awaitSingle()
     }
+
+    suspend fun guestbook(request: ServerRequest): ServerResponse {
+        val guestbooks = guestbookServicde.list().collectList().awaitSingle()
+        return HTML.render(
+            "manager/guestbook",
+            mapOf(
+                "guestbook" to guestbooks
+            )
+        ).awaitSingle()
+    }
+
 
     private suspend fun getRoleData(role: Int): List<FamilyEntity> {
         return when (role) {

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 페이지</title>
+    <link href="/css/manager.css" rel="stylesheet" />
+</head>
+
+<body>
+    <header>
+        <h1>관리자 페이지</h1>
+    </header>
+
+    <main>
+        <section>
+            <h2>사용자 데이터</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>이름</th>
+                            <th>내용</th>
+                            <th>생성시간</th>
+                            <th>수정시간</th>
+                            <th>삭제</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="gb : ${guestbook}">
+                            <td th:text="${gb.id}">1</td>
+                            <td th:text="${gb.name}">황민</td>
+                            <td th:text="${gb.detail}">황민</td>
+                            <td th:text="${#temporals.format(gb.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                            <td th:text="${#temporals.format(gb.updatedAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                            <td><button type="button" class="edit-button">삭제</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>MINSTYLE</p>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script th:src="@{/js/guestbook.js}"></script>
+</body>
+
+</html>

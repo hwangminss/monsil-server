@@ -23,7 +23,7 @@ input {
 table {
     width: 100%;
     border-collapse: collapse;
-    margin: 20px 0;
+    margin: 20px 20px;
 }
 
 table,

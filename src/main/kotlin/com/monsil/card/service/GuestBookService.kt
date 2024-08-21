@@ -65,7 +65,17 @@ class GuestBookService(
                 entity.deletedAt = LocalDateTime.now()
 
                 guestBookRepository.save(entity)
-            }.awaitSingle()    }
+            }.awaitSingle()
+    }
+
+    suspend fun maDelete(gb: GuestBookDeleteDTO): GuestBookEntity {
+        return guestBookRepository.findById(gb.id.toInt())
+            .filter { it.deletedAt == null }
+            .flatMap { entity ->
+                entity.deletedAt = LocalDateTime.now()
+                guestBookRepository.save(entity)
+            }.awaitSingle()
+    }
 
     suspend fun mono(id: Int): Mono<GuestBookEntity> {
         return guestBookRepository.findById(id)

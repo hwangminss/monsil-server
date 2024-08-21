@@ -26,6 +26,7 @@ class Router(
             GET("login", viewHandler::login)
             GET("home", viewHandler::home)
             GET("family", viewHandler::family)
+            GET("gb", viewHandler::guestbook)
         }
         "api".nest {
             "guestbook".nest{
@@ -33,6 +34,7 @@ class Router(
                 GET("list", guestbookApiHandler::list)
                 POST("update", guestbookApiHandler::update)
                 POST("delete", guestbookApiHandler::delete)
+                POST("maDelete", guestbookApiHandler::maDelete)
                 GET("mono/{id}", guestbookApiHandler::mono)
             }
             "family".nest{

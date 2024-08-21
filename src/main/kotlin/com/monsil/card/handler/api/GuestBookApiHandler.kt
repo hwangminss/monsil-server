@@ -94,6 +94,13 @@ class GuestBookApiHandler (
         }
     }
 
+    suspend fun maDelete(request: ServerRequest): ServerResponse {
+        val gb = request.bodyToMono(GuestBookDeleteDTO::class.java).awaitSingle()
+        val result = guestBookService.maDelete(gb)
+
+        return ServerResponse.ok().bodyValueAndAwait(result)
+    }
+
     suspend fun mono(request: ServerRequest): ServerResponse {
         val gbId = request.pathVariable("id")
         val gb = guestBookService.mono(gbId.toInt()).awaitSingleOrNull()
