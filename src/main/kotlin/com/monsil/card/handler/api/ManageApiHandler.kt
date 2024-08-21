@@ -36,7 +36,6 @@ class ManageApiHandler (
     suspend fun login(request: ServerRequest): ServerResponse {
         val login = request.bodyToMono(LoginDTO::class.java).awaitSingleOrNull() ?: return BAD.awaitSingle()
         val user = manageService.login(login)
-        print("$user useruser")
 
         request.session().doOnNext { session ->
             session.attributes["user"] = HashMap<String, Any>().apply {
@@ -55,7 +54,6 @@ class ManageApiHandler (
 
         return ServerResponse.ok().bodyValue(
             mapOf(
-                "message" to "Login successful",
                 "user" to user.uid
             )
         ).awaitSingle()

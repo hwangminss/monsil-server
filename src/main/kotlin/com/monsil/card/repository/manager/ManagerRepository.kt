@@ -4,7 +4,7 @@ import org.springframework.data.repository.reactive.ReactiveCrudRepository
 import reactor.core.publisher.Mono
 
 interface ManagerRepository : ReactiveCrudRepository<ManagerEntity, Long> {
-    suspend fun findUserByNameAndDeletedAtNull(name: String): Mono<ManagerEntity>
+    fun findByNameAndDeletedAtNull(name: String): Mono<ManagerEntity>
 }
 
 

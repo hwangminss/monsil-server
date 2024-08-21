@@ -24,7 +24,7 @@ class ManageService(
     }
 
     suspend fun login(login: LoginDTO): ManagerEntity {
-        val user = managerRepository.findUserByNameAndDeletedAtNull(login.name)
+        val user = managerRepository.findByNameAndDeletedAtNull(login.name)
             .awaitSingleOrNull() ?: throw CustomException(ErrorCode.NOT_EXIST_USER)
 
         if (user.password.isNotEmpty()) {

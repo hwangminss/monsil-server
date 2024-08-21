@@ -31,6 +31,7 @@ class SecurityConfiguration {
                         "/api/**",
                     ), permitAll
                 )
+                authorize(anyExchange, authenticated)
             }
             csrf { disable() }
             formLogin { loginPage = "/login" }

@@ -1,36 +1,29 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const form = document.getElementById('loginForm');
-    const errorMessage = document.getElementById('error-message');
+$(document).ready(function () {
+    const form = $('#loginForm');
+    const errorMessage = $('#error-message');
 
-    form.addEventListener('submit', function (event) {
+    form.on('submit', function (event) {
         event.preventDefault();
 
-        const formData = new FormData(form);
-        const data = {
-            name: formData.get('name'),
-            password: formData.get('password')
-        };
+        const formData = form.serializeArray();
+        const data = {};
+        formData.forEach(field => {
+            data[field.name] = field.value;
+        });
 
-        fetch('/api/manager/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        })
-        .then(response => response.json())
-        .then(result => {
-            if (result.success) {
+        $.ajax({
+            url: '/api/manager/login',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            success: function (result) {
                 window.location.href = '/manager';
-            } else {
-                errorMessage.textContent = result.message || '로그인에 실패했습니다. 다시 시도해 주세요.';
-                errorMessage.style.display = 'block';
+            },
+            error: function (xhr, status, error) {
+                console.error('로그인 요청 중 오류 발생:', error);
+                errorMessage.text('로그인 실패');
+                errorMessage.show();
             }
-        })
-        .catch(error => {
-            console.error('로그인 요청 중 오류 발생:', error);
-            errorMessage.textContent = '로그인 요청 중 오류가 발생했습니다. 나중에 다시 시도해 주세요.';
-            errorMessage.style.display = 'block';
         });
     });
 });
