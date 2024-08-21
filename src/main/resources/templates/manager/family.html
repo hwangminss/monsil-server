@@ -31,17 +31,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="user : ${userList}">
-                            <td th:text="${user.id}">1</td>
-                            <td
-                                th:text="${user.role == 0 ? '신랑' : (user.role == 1 ? '신부' : (user.role == 3 ? '혼주' : '기타'))}">
+                        <tr th:each="user, iterStat : ${userList}">
+                            <td th:text="${iterStat.index + 1}">1</td>
+                            <td th:text="${user.role == 0 ? '신랑' : (user.role == 1 ? '신부' : (user.role == 3 ? '혼주' : '기타'))}">
                             </td>
                             <td th:text="${user.name}">황민</td>
                             <td><input type="text" th:value="${user.bank}" class="bank"></td>
                             <td><input type="text" th:value="${user.account}" class="account"></td>
                             <td><input type="text" th:value="${user.kakao}" name="kakao" class="kakao" /></td>
-                            <td><input type="text" th:value="${#strings.substring(user.phone, 4)}" name="phone"
-                                    class="phone" /></td>
+                            <td><input type="text" th:value="${#strings.substring(user.phone, 4)}" name="phone" class="phone" /></td>
                             <td><button type="button" class="edit-button">수정</button></td>
                         </tr>
                     </tbody>

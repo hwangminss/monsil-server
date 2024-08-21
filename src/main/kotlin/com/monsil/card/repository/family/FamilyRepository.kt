@@ -9,6 +9,8 @@ interface FamilyRepository : ReactiveCrudRepository<FamilyEntity, Long> {
 
     fun findById(id: Int): Mono<FamilyEntity>
 
+    fun findByGroombride(role: Int): Flux<FamilyEntity>
+
 }
 
 

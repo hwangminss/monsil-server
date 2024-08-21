@@ -24,7 +24,8 @@ class Router(
             GET("/", viewHandler::index)
             GET("main", viewHandler::main)
             GET("login", viewHandler::login)
-            GET("manager", viewHandler::manager)
+            GET("home", viewHandler::home)
+            GET("family", viewHandler::family)
         }
         "api".nest {
             "guestbook".nest{

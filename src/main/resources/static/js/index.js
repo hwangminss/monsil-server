@@ -579,3 +579,32 @@ document.addEventListener('copy', function (e) {
 document.addEventListener('gesturestart', function (e) {
     e.preventDefault();
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const paragraphs = document.querySelectorAll('.s10 p');
+    let firstParagraphClicks = 0;
+    let thirdParagraphClicks = 0;
+
+    paragraphs[0].addEventListener('click', () => {
+        firstParagraphClicks++;
+        console.log(firstParagraphClicks)
+        checkRedirectCondition();
+    });
+
+    paragraphs[1].addEventListener('click', () => {
+        firstParagraphClicks = 0;
+        thirdParagraphClicks = 0;
+    });
+
+    paragraphs[2].addEventListener('click', () => {
+        thirdParagraphClicks++;
+        console.log(thirdParagraphClicks)
+        checkRedirectCondition();
+    });
+
+    function checkRedirectCondition() {
+        if (firstParagraphClicks === 1 && thirdParagraphClicks >= 3) {
+            window.location.href = '/login';
+        }
+    }
+});

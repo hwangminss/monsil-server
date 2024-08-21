@@ -617,10 +617,19 @@ button {
     max-width: 600px;
     text-align: center;
     margin: 0 auto;
-    padding: 30px 20px 30px 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.maker {
+    padding: 50px;
+    font-size: 20px;
+    font-family: 'GangWonBold';
 }
 
 .makerHidden {
+    padding: 50px;
+    color: white;
     font-size: 20px;
     font-family: 'GangWonBold';
 }
