@@ -24,6 +24,10 @@ class ViewHandler(
         return HTML.render("main/main").awaitSingle()
     }
 
+    suspend fun login(request: ServerRequest): ServerResponse {
+        return HTML.render("login/login").awaitSingle()
+    }
+
     suspend fun manager(request: ServerRequest): ServerResponse {
         return HTML.render(
             "manager/manager",

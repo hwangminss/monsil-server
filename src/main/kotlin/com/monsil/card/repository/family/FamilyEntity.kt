@@ -1,4 +1,4 @@
-package com.monsil.card.repository.guestbook
+package com.monsil.card.repository.family
 
 import com.monsil.card.handler.dto.FamilyDTO
 import org.springframework.data.annotation.Id

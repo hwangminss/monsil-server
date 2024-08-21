@@ -1,18 +1,14 @@
 package com.monsil.card.service
 
-import com.moimpay.web.exception.CustomException
-import com.moimpay.web.exception.ErrorCode
 import com.monsil.card.config.MonSilLog
 import com.monsil.card.handler.dto.FamilyDTO
 import com.monsil.card.handler.dto.FamilyUpdateDTO
-import com.monsil.card.handler.dto.GuestBookUpdateDTO
-import com.monsil.card.repository.guestbook.FamilyEntity
-import com.monsil.card.repository.guestbook.FamilyRepository
-import com.monsil.card.repository.guestbook.GuestBookEntity
-import com.monsil.card.util.PasswordEncoderImpl
+import com.monsil.card.repository.family.FamilyEntity
+import com.monsil.card.repository.family.FamilyRepository
 import kotlinx.coroutines.reactor.awaitSingle
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Flux
+import java.time.LocalDateTime
 
 @Service
 class FamilyService(
@@ -37,6 +33,7 @@ class FamilyService(
                 it.kakao = family.kakao
                 it.phone = family.phone
                 it.message = family.message
+                it.updatedAt = LocalDateTime.now()
 
                 familyRepository.save(it)
             }.awaitSingle()

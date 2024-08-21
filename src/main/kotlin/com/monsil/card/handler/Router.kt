@@ -3,6 +3,7 @@ package com.monsil.card.handler
 import com.monsil.card.config.MonSilLog
 import com.monsil.card.handler.api.FamilyApiHandler
 import com.monsil.card.handler.api.GuestBookApiHandler
+import com.monsil.card.handler.api.ManageApiHandler
 import com.monsil.card.handler.view.ViewHandler
 import org.springframework.context.annotation.Bean
 import org.springframework.stereotype.Component
@@ -12,7 +13,8 @@ import org.springframework.web.reactive.function.server.coRouter
 class Router(
     private val viewHandler: ViewHandler,
     private val guestbookApiHandler: GuestBookApiHandler,
-    private val familyApiHandler: FamilyApiHandler
+    private val familyApiHandler: FamilyApiHandler,
+    private val manageApiHandler: ManageApiHandler
 ) {
     companion object : MonSilLog
 
@@ -21,6 +23,7 @@ class Router(
         "".nest{
             GET("/", viewHandler::index)
             GET("main", viewHandler::main)
+            GET("login", viewHandler::login)
             GET("manager", viewHandler::manager)
         }
         "api".nest {
@@ -35,6 +38,10 @@ class Router(
                 GET("add", familyApiHandler::add)
                 GET("list", familyApiHandler::list)
                 POST("update", familyApiHandler::update)
+            }
+            "manager".nest{
+                POST("signUp", manageApiHandler::signUp)
+                POST("login", manageApiHandler::login)
             }
         }
     }

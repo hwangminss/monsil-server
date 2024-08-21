@@ -323,6 +323,7 @@ async function addGuestbookEntry() {
     if (name && detail && password) {
         const entry = { name, detail, password };
         try {
+            setStartSpinner()
             await fetch('/api/guestbook/add', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -332,11 +333,15 @@ async function addGuestbookEntry() {
             document.getElementById('name').value = '';
             document.getElementById('detail').value = '';
             document.getElementById('password').value = '';
+            setStopSpinner()
         } catch (error) {
-            alert('방명록 추가 중 오류가 발생했습니다.');
+            setStopSpinner()
+            console.log(error)
+            showCustomDialog('방명록 추가 중 오류가 발생했습니다.');
         }
     } else {
-        alert('모든 필드를 입력하세요.');
+        setStopSpinner()
+        showCustomDialog('모든 필드를 입력하세요.');
     }
 }
 
@@ -362,19 +367,28 @@ function updateLoadMoreVisibility() {
     const loadMoreButton = document.getElementById('loadMoreButton');
     const showAllButton = document.getElementById('showAllButton');
 
-    if (displayCount >= guestbookEntries.length) {
+    if (guestbookEntries.length < 5) {
         loadMoreButton.style.display = 'none';
-        document.getElementById('showAllButton').textContent = '줄이기';
-        document.getElementById('showAllButton').style.display = 'block';
+        showAllButton.style.display = 'none';
     } else {
         loadMoreButton.style.display = 'block';
-        document.getElementById('showAllButton').style.display = 'block';
+        showAllButton.style.display = 'block';
+
+    if (displayCount >= guestbookEntries.length) {
+            loadMoreButton.style.display = 'none';
+            document.getElementById('showAllButton').textContent = '줄이기';
+            document.getElementById('showAllButton').style.display = 'block';
+        } else {
+            showAllButton.textContent = '전체보기';
+        }
     }
 }
+
 
 const apiService = {
     deleteGuestbookEntry: async function (id, password) {
         try {
+            setStartSpinner()
             const response = await fetch('/api/guestbook/delete', {
                 method: 'POST',
                 headers: {
@@ -389,8 +403,10 @@ const apiService = {
             }
 
             const result = await response.json();
+            setStopSpinner()
             return result;
         } catch (error) {
+            setStopSpinner()
             console.error('Failed to delete entry:', error);
             throw error;
         }
@@ -398,6 +414,7 @@ const apiService = {
 
     updateGuestbookEntry: async function (updatedEntry) {
         try {
+            setStartSpinner()
             const response = await fetch('/api/guestbook/update', {
                 method: 'POST',
                 headers: {
@@ -417,8 +434,10 @@ const apiService = {
             }
 
             const result = await response.json();
+            setStopSpinner()
             return result;
         } catch (error) {
+            setStopSpinner()
             console.error('Failed to update entry:', error);
             throw error;
         }

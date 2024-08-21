@@ -45,6 +45,7 @@ class GuestBookService(
 
                 entity.name = gb.name
                 entity.detail = gb.detail
+                entity.updatedAt = LocalDateTime.now()
 
                 guestBookRepository.save(entity)
             }.awaitSingle()

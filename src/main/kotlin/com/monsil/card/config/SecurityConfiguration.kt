@@ -21,6 +21,7 @@ class SecurityConfiguration {
                 authorize(
                     pathMatchers(
                         "/",
+                        "/login",
                         "/js/**",
                         "/css/**",
                         "/font/**",
@@ -32,7 +33,7 @@ class SecurityConfiguration {
                 )
             }
             csrf { disable() }
-            formLogin { loginPage = "/" }
+            formLogin { loginPage = "/login" }
             httpBasic { disable() }
             cors { }
         }
