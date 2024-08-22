@@ -90,7 +90,6 @@ a {
     left: 50%;
     width: 600px;
     height: 100%;
-    background-image: url('/img/1234.JPG');
     background-size: cover;
     background-position: center;
     transform: translateX(-50%);

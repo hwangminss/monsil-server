@@ -118,6 +118,7 @@
         }
 
         .current-images img {
+            max-width: 580px;
             height: auto;
             margin: 10px;
             border: 1px solid #ddd;

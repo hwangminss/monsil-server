@@ -29,7 +29,11 @@ class ViewHandler(
     companion object : MonSilLog
 
     suspend fun index(request: ServerRequest): ServerResponse {
-        return HTML.render("index/index").awaitSingle()
+        val bgImg = photoRepository.findByIsMain(1).awaitSingleOrNull()
+        return HTML.render(
+            "index/index",
+            mapOf("bgImg" to bgImg)
+        ).awaitSingle()
     }
 
     suspend fun main(request: ServerRequest): ServerResponse {
@@ -41,14 +45,17 @@ class ViewHandler(
     }
 
     suspend fun home(request: ServerRequest): ServerResponse {
+        val uid = request.userSession()["userUid"] as String
+        val user = managerRepository.findByUid(uid).awaitSingle()
         return HTML.render(
-            "manager/home").awaitSingle()
+            "manager/home",
+            mapOf("user" to user)
+        ).awaitSingle()
     }
 
     suspend fun family(request: ServerRequest): ServerResponse {
         val uid = request.userSession()["userUid"] as String
         val user = managerRepository.findByUid(uid).awaitSingle()
-
         val roleData = getRoleData(user.role!!)
 
         return HTML.render(

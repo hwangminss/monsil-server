@@ -1,3 +1,42 @@
+function loadCurrentImages() {
+    const currentImagesDiv = document.getElementById('background-image');
+    if (!currentImagesDiv) {
+        console.error('Element with ID "currentImages" not found.');
+        return;
+    }
+
+    const imagePath = currentImagesDiv.getAttribute('data-image-url');
+
+    if (imagePath) {
+        fetch(imagePath)
+            .then(response => {
+                if (response.ok) {
+                    const img = document.createElement('img');
+                    img.src = imagePath;
+                    currentImagesDiv.innerHTML = '';
+                    currentImagesDiv.appendChild(img);
+                } else {
+                    currentImagesDiv.innerHTML = `
+                            <div class="no-image">
+                                <p>업로드된 이미지가 없습니다.</p>
+                        `;
+                }
+            })
+            .catch(error => {
+                currentImagesDiv.innerHTML = `
+                        <div class="no-image">
+                            <p>업로드된 이미지가 없습니다.</p>
+                    `;
+            });
+    } else {
+        currentImagesDiv.innerHTML = `
+                <div class="no-image">
+                    <p>업로드된 이미지가 없습니다.</p>
+        `;
+    }
+}
+
+window.onload = loadCurrentImages;
 //section1~4
 document.addEventListener('DOMContentLoaded', function () {
     let startY;
