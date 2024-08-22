@@ -11,11 +11,9 @@ import com.monsil.card.service.FamilyService
 import com.monsil.card.service.GuestBookService
 import com.monsil.card.service.ManageService
 import kotlinx.coroutines.reactor.awaitSingle
-import kotlinx.coroutines.reactor.awaitSingleOrNull
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.server.ServerRequest
 import org.springframework.web.reactive.function.server.ServerResponse
-import java.time.format.DateTimeFormatter
 
 @Component
 class ViewHandler(
@@ -66,6 +64,13 @@ class ViewHandler(
         ).awaitSingle()
     }
 
+    suspend fun mainPhoto(request: ServerRequest): ServerResponse {
+        return HTML.render("manager/mainPhoto").awaitSingle()
+    }
+
+    suspend fun galleryPhoto(request: ServerRequest): ServerResponse {
+        return HTML.render("manager/galleryPhoto").awaitSingle()
+    }
 
     private suspend fun getRoleData(role: Int): List<FamilyEntity> {
         return when (role) {

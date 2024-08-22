@@ -27,6 +27,8 @@ class Router(
             GET("home", viewHandler::home)
             GET("family", viewHandler::family)
             GET("gb", viewHandler::guestbook)
+            GET("ptMain", viewHandler::mainPhoto)
+            GET("ptGallery", viewHandler::galleryPhoto)
         }
         "api".nest {
             "guestbook".nest{
@@ -45,6 +47,8 @@ class Router(
             "manager".nest{
                 POST("signUp", manageApiHandler::signUp)
                 POST("login", manageApiHandler::login)
+                POST("uploadMain", manageApiHandler::uploadMainPhoto)
+                POST("uploadGallery", manageApiHandler::uploadMainPhoto)
             }
         }
     }

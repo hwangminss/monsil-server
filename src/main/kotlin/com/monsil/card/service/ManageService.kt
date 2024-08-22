@@ -4,9 +4,12 @@ import com.moimpay.web.exception.CustomException
 import com.moimpay.web.exception.ErrorCode
 import com.monsil.card.config.MonSilLog
 import com.monsil.card.handler.dto.LoginDTO
+import com.monsil.card.handler.dto.PhotoDTO
 import com.monsil.card.handler.dto.SignUpDTO
 import com.monsil.card.repository.manager.ManagerEntity
 import com.monsil.card.repository.manager.ManagerRepository
+import com.monsil.card.repository.photo.PhotoEntity
+import com.monsil.card.repository.photo.PhotoRepository
 import com.monsil.card.util.PasswordEncoderImpl
 import kotlinx.coroutines.reactor.awaitSingleOrNull
 import org.springframework.stereotype.Service
@@ -14,7 +17,8 @@ import reactor.core.publisher.Mono
 
 @Service
 class ManageService(
-    private val managerRepository: ManagerRepository
+    private val managerRepository: ManagerRepository,
+    private val photoRepository: PhotoRepository
 ) {
     companion object : MonSilLog
 
@@ -35,5 +39,10 @@ class ManageService(
         }
 
         return user
+    }
+
+    suspend fun addMainPt(photo: PhotoDTO): Mono<PhotoEntity> {
+        val photoEntity = PhotoEntity.assign(photo)
+        return photoRepository.save(photoEntity)
     }
 }
