@@ -7,10 +7,12 @@ import com.monsil.card.handler.SessionHandler.Companion.HTML
 import com.monsil.card.repository.family.FamilyEntity
 import com.monsil.card.repository.family.FamilyRepository
 import com.monsil.card.repository.manager.ManagerRepository
+import com.monsil.card.repository.photo.PhotoRepository
 import com.monsil.card.service.FamilyService
 import com.monsil.card.service.GuestBookService
 import com.monsil.card.service.ManageService
 import kotlinx.coroutines.reactor.awaitSingle
+import kotlinx.coroutines.reactor.awaitSingleOrNull
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.server.ServerRequest
 import org.springframework.web.reactive.function.server.ServerResponse
@@ -21,7 +23,8 @@ class ViewHandler(
     private val familyRepository: FamilyRepository,
     private val managerService: ManageService,
     private val managerRepository: ManagerRepository,
-    private val guestbookServicde: GuestBookService
+    private val guestbookServicde: GuestBookService,
+    private val photoRepository: PhotoRepository
 ) : SessionHandler {
     companion object : MonSilLog
 
@@ -65,7 +68,11 @@ class ViewHandler(
     }
 
     suspend fun mainPhoto(request: ServerRequest): ServerResponse {
-        return HTML.render("manager/mainPhoto").awaitSingle()
+        val mainPt = photoRepository.findByIsMain(1).awaitSingleOrNull()
+        return HTML.render(
+            "manager/mainPhoto",
+            mapOf("data" to mainPt)
+        ).awaitSingle()
     }
 
     suspend fun galleryPhoto(request: ServerRequest): ServerResponse {

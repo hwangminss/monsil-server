@@ -48,6 +48,7 @@ class Router(
                 POST("signUp", manageApiHandler::signUp)
                 POST("login", manageApiHandler::login)
                 POST("uploadMain", manageApiHandler::uploadMainPhoto)
+                POST("modifyMain", manageApiHandler::modifyMainPhoto)
                 POST("uploadGallery", manageApiHandler::uploadMainPhoto)
             }
         }

@@ -374,7 +374,7 @@ function updateLoadMoreVisibility() {
         loadMoreButton.style.display = 'block';
         showAllButton.style.display = 'block';
 
-    if (displayCount >= guestbookEntries.length) {
+        if (displayCount >= guestbookEntries.length) {
             loadMoreButton.style.display = 'none';
             document.getElementById('showAllButton').textContent = '줄이기';
             document.getElementById('showAllButton').style.display = 'block';

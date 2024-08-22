@@ -28,8 +28,10 @@ class ManageApiHandler (
 ) {
     companion object : MonSilLog {
         val BAD = ServerResponse.badRequest().build()
-        private const val MAIN_UPLOAD_DIR = "/Users/hwangmin/eungming/uploads/main"
-        private const val GALLERY_UPLOAD_DIR = "/Users/hwangmin/eungming/uploads/gallery"
+//        private const val MAIN_UPLOAD_DIR = "/Users/hwangmin/eungming/uploads/main"
+//        private const val GALLERY_UPLOAD_DIR = "/Users/hwangmin/eungming/uploads/gallery"
+        private const val MAIN_UPLOAD_DIR = "/uploads/main"
+        private const val GALLERY_UPLOAD_DIR = "/uploads/gallery"
         private const val MAX_GALLERY_IMAGES = 20
     }
 
@@ -68,44 +70,95 @@ class ManageApiHandler (
     }
 
     suspend fun uploadMainPhoto(request: ServerRequest): ServerResponse {
-        println("uploadMainPhoto 호출됨")
+        println("upload")
         return try {
             val data = request.bodyToMono(object : ParameterizedTypeReference<Map<String, String>>() {}).awaitSingleOrNull()
-            val photoName = data?.get("name") ?: "background"
             val base64File = data?.get("file")
 
             if (base64File != null) {
                 val bytes = Base64.getDecoder().decode(base64File)
-                val filename = "$photoName.jpg"
+                val mimeType = Files.probeContentType(Paths.get("dummy", "dummy").resolve("dummy.jpg"))
+                val extension = when (mimeType) {
+                    "image/jpeg" -> "jpg"
+                    "image/png" -> "png"
+                    "image/gif" -> "gif"
+                    else -> "jpg"
+                }
+                val filename = "background.$extension"
                 val path = Paths.get(MAIN_UPLOAD_DIR).resolve(filename)
-                println("파일 경로: $path")
 
                 if (!Files.exists(path.parent)) {
-                    println("경로에 대한 디렉토리 생성 중: ${path.parent}")
                     Files.createDirectories(path.parent)
                 }
 
-                println("파일을 경로로 전송 중: $path")
                 Files.write(path, bytes)
-                println("파일 전송 완료")
-
-                val fileUrl = "/Users/hwangmin/eungming/uploads/main/$filename"
-                println("파일 URL: $fileUrl")
+                val fileUrl = "/uploads/main/$filename"
                 val photoDTO = PhotoDTO(url = fileUrl, isMain = true)
-
-                println("서비스에 사진 추가 중: $photoDTO")
                 manageService.addMainPt(photoDTO).awaitSingleOrNull()
-                println("사진 추가 완료")
 
                 ServerResponse.ok().bodyValueAndAwait(mapOf("url" to fileUrl))
             } else {
-                println("파일 데이터가 없음")
                 ServerResponse.status(HttpStatus.BAD_REQUEST)
                     .bodyValueAndAwait(mapOf("error" to "파일 데이터가 제공되지 않았습니다"))
             }
         } catch (e: Exception) {
-            e.printStackTrace() // 예외 메시지를 로그에 출력
-            println("예외 발생: ${e.message}") // 예외 메시지 추가 로그
+            e.printStackTrace()
+            ServerResponse.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .bodyValueAndAwait(mapOf("error" to "사진 업로드 실패: ${e.message ?: "알 수 없는 오류"}"))
+        }
+    }
+
+    suspend fun modifyMainPhoto(request: ServerRequest): ServerResponse {
+        println("modify")
+        return try {
+            val data = request.bodyToMono(object : ParameterizedTypeReference<Map<String, String>>() {}).awaitSingleOrNull()
+            val base64File = data?.get("file")
+            val exFile = manageService.loadMainPt()
+            val exFileName = exFile.url
+            println("$exFile \n $exFileName")
+            if (exFile != null) {
+                val path = Paths.get(MAIN_UPLOAD_DIR).resolve(exFileName)
+
+                if (Files.exists(path)) {
+                    Files.delete(path)
+                    ServerResponse.ok().bodyValueAndAwait(mapOf("message" to "파일이 성공적으로 삭제되었습니다"))
+                } else {
+                    ServerResponse.status(HttpStatus.NOT_FOUND)
+                        .bodyValueAndAwait(mapOf("error" to "파일을 찾을 수 없습니다"))
+                }
+            } else {
+                ServerResponse.status(HttpStatus.BAD_REQUEST)
+                    .bodyValueAndAwait(mapOf("error" to "파일 이름이 제공되지 않았습니다"))
+            }
+
+            if (base64File != null) {
+                val bytes = Base64.getDecoder().decode(base64File)
+                val mimeType = Files.probeContentType(Paths.get("dummy", "dummy").resolve("dummy.jpg"))
+                val extension = when (mimeType) {
+                    "image/jpeg" -> "jpg"
+                    "image/png" -> "png"
+                    "image/gif" -> "gif"
+                    else -> "jpg"
+                }
+                val filename = "background.$extension"
+                val path = Paths.get(MAIN_UPLOAD_DIR).resolve(filename)
+
+                if (!Files.exists(path.parent)) {
+                    Files.createDirectories(path.parent)
+                }
+
+                Files.write(path, bytes)
+                val fileUrl = "/uploads/main/$filename"
+                val photoDTO = PhotoDTO(url = fileUrl, isMain = true)
+                manageService.modifyMainPt(photoDTO)
+
+                ServerResponse.ok().bodyValueAndAwait(mapOf("url" to fileUrl))
+            } else {
+                ServerResponse.status(HttpStatus.BAD_REQUEST)
+                    .bodyValueAndAwait(mapOf("error" to "파일 데이터가 제공되지 않았습니다"))
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
             ServerResponse.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .bodyValueAndAwait(mapOf("error" to "사진 업로드 실패: ${e.message ?: "알 수 없는 오류"}"))
         }

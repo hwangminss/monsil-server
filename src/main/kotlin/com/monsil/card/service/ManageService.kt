@@ -11,9 +11,11 @@ import com.monsil.card.repository.manager.ManagerRepository
 import com.monsil.card.repository.photo.PhotoEntity
 import com.monsil.card.repository.photo.PhotoRepository
 import com.monsil.card.util.PasswordEncoderImpl
+import kotlinx.coroutines.reactor.awaitSingle
 import kotlinx.coroutines.reactor.awaitSingleOrNull
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Mono
+import java.time.LocalDateTime
 
 @Service
 class ManageService(
@@ -44,5 +46,19 @@ class ManageService(
     suspend fun addMainPt(photo: PhotoDTO): Mono<PhotoEntity> {
         val photoEntity = PhotoEntity.assign(photo)
         return photoRepository.save(photoEntity)
+    }
+
+    suspend fun loadMainPt(): PhotoEntity {
+        val exFile = photoRepository.findByIsMain(1).awaitSingleOrNull()
+            ?: throw CustomException(ErrorCode.NOT_EXIST_USER)
+        return exFile
+    }
+
+    suspend fun modifyMainPt(photo: PhotoDTO): PhotoEntity {
+        return photoRepository.findByIsMain(1).flatMap {
+            it.url = photo.url
+            it.updatedAt = LocalDateTime.now()
+            photoRepository.save(it)
+        }.awaitSingle()
     }
 }
