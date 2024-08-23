@@ -9,16 +9,18 @@
 </head>
 
 <body>
+<div class="main-container">
+    <button class="main-button" onclick="navigateTo('/')">메인화면</button>
     <div class="grid-container">
-        <button class="grid-item" onclick="navigateTo('/')">메인화면</button>
         <button class="grid-item" onclick="navigateTo('/family')">가족설정</button>
         <button class="grid-item" onclick="navigateTo('/gb')">방명록 설정</button>
         <button class="grid-item" onclick="navigateTo('/ptMain')" th:if="${user.role == 0}">배경화면 설정</button>
         <button class="grid-item" onclick="navigateTo('/ptGallery')" th:if="${user.role == 0}">갤러리 설정</button>
     </div>
+</div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script th:src="@{/js/home.js}"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script th:src="@{/js/home.js}"></script>
 </body>
 
 </html>
