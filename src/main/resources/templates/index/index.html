@@ -7,7 +7,7 @@
     <title>은솔 ♥️ 민 결혼식에 초대합니다</title>
     <meta property="og:title" content="은솔 ♥️ 민 결혼식에 초대합니다">
     <meta property="og:description" content="2025.11.08 토요일 오후 1시">
-    <meta property="og:image" content="https://eungming.com/img/1234.JPG">
+    <meta property="og:image" th:content="'https://eungming.com' + ${bgImg.url}">
     <meta property="og:url" content="https://eungming.com/">
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="stylesheet" href="/css/index.css">
@@ -225,6 +225,7 @@
     /*<![CDATA[*/
     var gallery = [[${gallery}]];
     var imageUrls = gallery.map(item => item.url);
+    var domain = [[${bgImg.url}]];
     console.log(imageUrls);
     /*]]>*/
 </script>

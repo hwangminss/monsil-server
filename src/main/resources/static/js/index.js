@@ -532,7 +532,7 @@ function shareKakaoLink() {
             content: {
                 title: '은솔 ♥️ 민 결혼식에 초대합니다',
                 description: '2025.11.08 토요일 오후 1시',
-                imageUrl: 'https://eungming.com/uploads/main/background.jpg',
+                imageUrl: 'https://eungming.com'+domain,
                 link: {
                     mobileWebUrl: 'https://eungming.com/',
                     webUrl: 'https://eungming.com/',
