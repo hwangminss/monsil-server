@@ -605,7 +605,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function checkRedirectCondition() {
         if (firstParagraphClicks === 1 && thirdParagraphClicks >= 3) {
-            window.location.href = '/login';
+            window.location.href = '/home';
         }
     }
 });
