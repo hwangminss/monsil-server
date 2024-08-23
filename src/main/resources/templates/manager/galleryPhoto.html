@@ -5,22 +5,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>홈 페이지</title>
-    <link href="/css/mainPhoto.css" rel="stylesheet">
+    <link href="/css/galleryPhoto.css" rel="stylesheet">
 </head>
-
 <body>
 <div class="container">
-    <h1>배경 사진 업로드</h1>
-    <form id="uploadForm">
-        <div class="input-group file-upload-wrapper">
-            <button type="button" class="file-upload-button" onclick="document.getElementById('file').click();">파일 선택</button>
-            <input type="file" id="file" name="file" accept="image/*" required>
-        </div>
-        <div>
-            <button th:if="${data == null}" id="uploadButton" type="submit" class="file-upload-button">업로드</button>
-            <button th:if="${data != null}" id="modifyButton" type="submit" class="file-upload-button">수정</button>
-        </div>
-    </form>
+    <h1>갤러리</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>이미지 미리보기</th>
+            <th>삭제</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="image, iterStat : ${images}">
+            <td th:text="${iterStat.index + 1}"></td>
+            <td><img th:src="@{${image.url}}" alt="이미지 미리보기" class="preview-img"/></td>
+            <td><button th:onclick="'deleteImage(' + ${image.id} + ')'">삭제</button></td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="add-image">
+        <h2>이미지 추가</h2>
+        <form id="addImageForm">
+            <div class="input-group file-upload-wrapper">
+                <button type="button" id="selectFileButton" class="file-upload-button" onclick="document.getElementById('file').click();">파일 선택</button>
+                <input type="file" id="file" name="file" accept="image/*" required style="display: none;">
+            </div>
+            <button type="submit" id="addButton" class="file-upload-button" style="display: none;">추가</button>
+        </form>
+    </div>
+    <div class="message" id="message"></div>
     <div class="preview">
         <h2>미리보기:</h2>
         <img id="previewImage" src="" alt="배경 이미지" style="display: none;" />
@@ -28,21 +44,11 @@
             <p>업로드된 이미지가 없습니다.</p>
         </div>
     </div>
-    <div class="message" id="message"></div>
-    <div class="current-images">
-        <h2>현재 사진:</h2>
-        <div id="currentImages" th:if="${data != null}" th:data-image-url="${data.url}">
-        </div>
-        <div th:if="${data == null}" class="no-image">
-            <p>업로드된 이미지가 없습니다.</p>
-        </div>
-    </div>
-    <div id="spinners"></div>
-
 </div>
+<div id="spinners"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
 <script th:src="@{/js/spinner.js}"></script>
-<script th:src="@{/js/mainPhoto.js}"></script>
+<script th:src="@{/js/galleryPhoto.js}"></script>
 </body>
 
 </html>

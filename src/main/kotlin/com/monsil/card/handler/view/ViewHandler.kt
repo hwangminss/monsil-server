@@ -6,6 +6,7 @@ import com.monsil.card.handler.SessionHandler
 import com.monsil.card.handler.SessionHandler.Companion.HTML
 import com.monsil.card.repository.family.FamilyEntity
 import com.monsil.card.repository.family.FamilyRepository
+import com.monsil.card.repository.guestbook.GuestBookRepository
 import com.monsil.card.repository.manager.ManagerRepository
 import com.monsil.card.repository.photo.PhotoRepository
 import com.monsil.card.service.FamilyService
@@ -24,12 +25,13 @@ class ViewHandler(
     private val managerService: ManageService,
     private val managerRepository: ManagerRepository,
     private val guestbookServicde: GuestBookService,
+    private val guestBookRepository: GuestBookRepository,
     private val photoRepository: PhotoRepository
 ) : SessionHandler {
     companion object : MonSilLog
 
     suspend fun index(request: ServerRequest): ServerResponse {
-        val bgImg = photoRepository.findByIsMain(1).awaitSingleOrNull()
+        val bgImg = photoRepository.findByIdAndIsMain(1,1).awaitSingleOrNull()
         return HTML.render(
             "index/index",
             mapOf("bgImg" to bgImg)
@@ -65,17 +67,16 @@ class ViewHandler(
     }
 
     suspend fun guestbook(request: ServerRequest): ServerResponse {
-        val guestbooks = guestbookServicde.list().collectList().awaitSingle()
         return HTML.render(
             "manager/guestbook",
             mapOf(
-                "guestbook" to guestbooks
+                "guestbook" to guestBookRepository.findAll().collectList().awaitSingleOrNull()
             )
         ).awaitSingle()
     }
 
     suspend fun mainPhoto(request: ServerRequest): ServerResponse {
-        val mainPt = photoRepository.findByIsMain(1).awaitSingleOrNull()
+        val mainPt = photoRepository.findByIdAndIsMain(1,1).awaitSingleOrNull()
         return HTML.render(
             "manager/mainPhoto",
             mapOf("data" to mainPt)
@@ -83,7 +84,11 @@ class ViewHandler(
     }
 
     suspend fun galleryPhoto(request: ServerRequest): ServerResponse {
-        return HTML.render("manager/galleryPhoto").awaitSingle()
+        val gallery = photoRepository.findByIsMain(0).collectList().awaitSingleOrNull()
+        return HTML.render(
+            "manager/galleryPhoto",
+            mapOf("images" to gallery)
+            ).awaitSingle()
     }
 
     private suspend fun getRoleData(role: Int): List<FamilyEntity> {

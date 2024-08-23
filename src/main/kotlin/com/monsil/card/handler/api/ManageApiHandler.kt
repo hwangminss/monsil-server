@@ -32,7 +32,6 @@ class ManageApiHandler (
 //        private const val GALLERY_UPLOAD_DIR = "/Users/hwangmin/eungming/uploads/gallery"
         private const val MAIN_UPLOAD_DIR = "/uploads/main"
         private const val GALLERY_UPLOAD_DIR = "/uploads/gallery"
-        private const val MAX_GALLERY_IMAGES = 20
     }
 
     suspend fun signUp(request: ServerRequest): ServerResponse {
@@ -70,7 +69,6 @@ class ManageApiHandler (
     }
 
     suspend fun uploadMainPhoto(request: ServerRequest): ServerResponse {
-        println("upload")
         return try {
             val data = request.bodyToMono(object : ParameterizedTypeReference<Map<String, String>>() {}).awaitSingleOrNull()
             val base64File = data?.get("file")
@@ -164,38 +162,74 @@ class ManageApiHandler (
         }
     }
 
-    // 갤러리 사진 업로드 API (최대 20장)
     suspend fun uploadGalleryPhotos(request: ServerRequest): ServerResponse {
         return try {
-            val multipartData = request.multipartData().awaitSingle()
-            val files = multipartData["file"]
+            val data = request.bodyToMono(object : ParameterizedTypeReference<Map<String, String>>() {}).awaitSingleOrNull()
+            val base64File = data?.get("file")
 
-            if (files != null && files.size <= MAX_GALLERY_IMAGES) {
-                val uploadedFiles = mutableListOf<String>()
+            if (base64File != null) {
+                val bytes = Base64.getDecoder().decode(base64File)
+                val mimeType = Files.probeContentType(Paths.get("dummy", "dummy").resolve("dummy.jpg"))
+                val extension = when (mimeType) {
+                    "image/jpeg" -> "jpg"
+                    "image/png" -> "png"
+                    "image/gif" -> "gif"
+                    else -> "jpg"
+                }
+                val filename = "${UUID.randomUUID()}.$extension"
+                val path = Paths.get(GALLERY_UPLOAD_DIR).resolve(filename)
 
-                for (file in files) {
-                    val filePart = file as FilePart
-                    val filename = filePart.filename()
-                    val path = Paths.get(GALLERY_UPLOAD_DIR).resolve(filename)
-
-                    if (!Files.exists(path.parent)) {
-                        Files.createDirectories(path.parent)
-                    }
-
-                    filePart.transferTo(path).awaitSingle()
-                    uploadedFiles.add("/uploads/gallery/$filename")
+                if (!Files.exists(path.parent)) {
+                    Files.createDirectories(path.parent)
                 }
 
-                ServerResponse.ok().bodyValueAndAwait(
-                    mapOf("message" to "Gallery photos uploaded successfully", "files" to uploadedFiles)
-                )
+                Files.write(path, bytes)
+                val fileUrl = "/uploads/gallery/$filename"
+                val photoDTO = PhotoDTO(url = fileUrl, isMain = false)
+                manageService.addMainPt(photoDTO).awaitSingleOrNull()
+
+                ServerResponse.ok().bodyValueAndAwait(mapOf("url" to fileUrl))
             } else {
                 ServerResponse.status(HttpStatus.BAD_REQUEST)
-                    .bodyValueAndAwait("No files provided or file limit exceeded. Max 20 images allowed.")
+                    .bodyValueAndAwait(mapOf("error" to "파일 데이터가 제공되지 않았습니다"))
             }
         } catch (e: Exception) {
+            e.printStackTrace()
             ServerResponse.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .bodyValueAndAwait("Gallery photo upload failed: ${e.message}")
+                .bodyValueAndAwait(mapOf("error" to "사진 업로드 실패: ${e.message ?: "알 수 없는 오류"}"))
+        }
+    }
+
+    suspend fun deleteGalleryPhotos(request: ServerRequest): ServerResponse {
+        val glId = request.pathVariable("id").toLong()
+        return try {
+            val exFile = manageService.loadGalleryPt(glId)
+            val exFileName = exFile.url!!.split("/");
+
+            println("$exFile \n $exFileName")
+
+            if (exFile != null) {
+                val path = Paths.get(GALLERY_UPLOAD_DIR).resolve(exFileName.last())
+
+                if (Files.exists(path)) {
+                    Files.delete(path)
+                    println("File deleted from disk")
+                    manageService.deleteGalleryPt(glId) // 데이터베이스에서 삭제
+                    println("PhotoDTO deleted from database")
+                    ServerResponse.ok().bodyValueAndAwait(mapOf("message" to "파일이 성공적으로 삭제되었습니다"))
+                } else {
+                    ServerResponse.status(HttpStatus.NOT_FOUND)
+                        .bodyValueAndAwait(mapOf("error" to "파일을 찾을 수 없습니다"))
+                }
+            } else {
+                ServerResponse.status(HttpStatus.BAD_REQUEST)
+                    .bodyValueAndAwait(mapOf("error" to "파일 이름이 제공되지 않았습니다"))
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            println("Exception occurred: ${e.message}")
+            ServerResponse.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .bodyValueAndAwait(mapOf("error" to "사진 삭제 실패: ${e.message ?: "알 수 없는 오류"}"))
         }
     }
 }

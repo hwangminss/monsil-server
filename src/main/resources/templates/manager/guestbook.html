@@ -15,7 +15,9 @@
 
 <main>
     <section>
-        <h2>사용자 데이터</h2>
+        <div class="title-container">
+        <h2>방명록 관리</h2>
+        </div>
         <div class="table-container">
             <table>
                 <thead>
@@ -38,10 +40,10 @@
                     <td th:text="${#temporals.format(gb.updatedAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
                     <td>
                         <span th:text="${#temporals.format(gb.deletedAt, 'yyyy-MM-dd HH:mm:ss')}"></span>
-                        <span th:if="${gb.deletedAt != null and gb.deletedAt != ''}">삭제완료</span>
                     </td>
                     <td>
                         <button type="button" class="edit-button" th:if="${gb.deletedAt == null or gb.deletedAt == ''}">삭제</button>
+                        <span th:if="${gb.deletedAt != null and gb.deletedAt != ''}">삭제완료</span>
                     </td>
                 </tr>
                 </tbody>

@@ -17,6 +17,12 @@ main {
     padding: 20px;
 }
 
+.title-container {
+    display: flex;
+    justify-content: left;
+    margin: 20px 10px;
+}
+
 .table-container {
     display: flex;
     justify-content: center;

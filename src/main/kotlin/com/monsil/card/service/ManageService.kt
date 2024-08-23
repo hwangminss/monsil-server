@@ -49,16 +49,26 @@ class ManageService(
     }
 
     suspend fun loadMainPt(): PhotoEntity {
-        val exFile = photoRepository.findByIsMain(1).awaitSingleOrNull()
+        val exFile = photoRepository.findByIdAndIsMain(1,1).awaitSingleOrNull()
             ?: throw CustomException(ErrorCode.NOT_EXIST_USER)
         return exFile
     }
 
     suspend fun modifyMainPt(photo: PhotoDTO): PhotoEntity {
-        return photoRepository.findByIsMain(1).flatMap {
+        return photoRepository.findByIdAndIsMain(1,1).flatMap {
             it.url = photo.url
             it.updatedAt = LocalDateTime.now()
             photoRepository.save(it)
         }.awaitSingle()
+    }
+
+    suspend fun loadGalleryPt(id: Long): PhotoEntity {
+        val exFile = photoRepository.findById(id).awaitSingleOrNull()
+            ?: throw CustomException(ErrorCode.NOT_FOUND_DATA)
+        return exFile
+    }
+
+    suspend fun deleteGalleryPt(id: Long): Void? {
+        return photoRepository.deleteById(id).awaitSingleOrNull()
     }
 }

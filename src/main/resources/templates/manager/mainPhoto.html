@@ -13,12 +13,12 @@
     <h1>배경 사진 업로드</h1>
     <form id="uploadForm">
         <div class="input-group file-upload-wrapper">
-            <button type="button" class="file-upload-button" onclick="document.getElementById('file').click();">파일 선택</button>
+            <button type="button" id="selectFileButton" class="file-upload-button" onclick="document.getElementById('file').click();">파일 선택</button>
             <input type="file" id="file" name="file" accept="image/*" required>
         </div>
         <div>
-            <button th:if="${data == null}" id="uploadButton" type="submit" class="file-upload-button">업로드</button>
-            <button th:if="${data != null}" id="modifyButton" type="submit" class="file-upload-button">수정</button>
+            <button th:if="${data == null}" id="uploadButton" type="submit" class="file-upload-button" style="display: none;">업로드</button>
+            <button th:if="${data != null}" id="modifyButton" type="submit" class="file-upload-button" style="display: none;">수정</button>
         </div>
     </form>
     <div class="preview">

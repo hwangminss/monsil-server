@@ -2,6 +2,18 @@ document.getElementById('file').addEventListener('change', function (event) {
     const file = event.target.files[0];
     const reader = new FileReader();
 
+    if (file) {
+        document.getElementById('selectFileButton').style.display = 'none';
+        const uploadButton = document.getElementById('uploadButton');
+        const modifyButton = document.getElementById('modifyButton');
+        if (uploadButton) {
+            uploadButton.style.display = 'block';
+        }
+        if (modifyButton) {
+            modifyButton.style.display = 'block';
+        }
+    }
+
     reader.onload = function (e) {
         document.getElementById('previewImage').src = e.target.result;
         document.getElementById('noImage').style.display = 'none';

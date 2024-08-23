@@ -49,7 +49,8 @@ class Router(
                 POST("login", manageApiHandler::login)
                 POST("uploadMain", manageApiHandler::uploadMainPhoto)
                 POST("modifyMain", manageApiHandler::modifyMainPhoto)
-                POST("uploadGallery", manageApiHandler::uploadMainPhoto)
+                POST("uploadGallery", manageApiHandler::uploadGalleryPhotos)
+                DELETE("deleteGallery/{id}", manageApiHandler::deleteGalleryPhotos)
             }
         }
     }

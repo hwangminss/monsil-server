@@ -6,7 +6,7 @@ body {
 }
 
 .container {
-    max-width: 600px;
+    max-width: 800px;
     margin: 40px auto;
     padding: 20px;
     background: #ffffff;
@@ -20,27 +20,27 @@ h1 {
     color: #333;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-}
-
-label {
-    font-weight: bold;
-    margin-bottom: 8px;
-    color: #555;
-}
-
-.input-group {
+table {
+    width: 100%;
+    border-collapse: collapse;
     margin-bottom: 20px;
 }
 
-input[type="text"] {
-    padding: 10px;
+table th, table td {
+    padding: 12px;
     border: 1px solid #ddd;
+    text-align: center;
+}
+
+table th {
+    background-color: #f2f2f2;
+    color: #333;
+}
+
+table td img.preview-img {
+    max-width: 100px;
+    height: auto;
     border-radius: 4px;
-    width: 95%;
-    font-size: 16px;
 }
 
 .file-upload-wrapper {
@@ -80,6 +80,31 @@ input[type="file"] {
     cursor: pointer;
 }
 
+.add-image {
+    margin-top: 40px;
+}
+
+.message {
+    margin-top: 20px;
+    color: #d9534f;
+    font-size: 16px;
+}
+
+button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #28a745;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+button:hover {
+    background-color: #218838;
+    color: #e0e0e0;
+}
+
 .preview {
     margin-top: 20px;
 }
@@ -92,43 +117,63 @@ input[type="file"] {
     display: block;
 }
 
-.message {
-    margin-top: 20px;
-    color: #d9534f;
-    /* Red color for error messages */
-    font-size: 16px;
-}
-
-.no-image {
-    text-align: center;
-    font-size: 18px;
-    color: #999;
-    margin-top: 20px;
-}
-
-.no-image img {
-    max-width: 150px;
-    height: auto;
-    display: block;
-    margin: 0 auto;
-}
-
-.current-images {
-    margin-top: 40px;
-    overflow: hidden;
-}
-
-.current-images img {
-    max-width: 90%;
-    height: auto;
-    margin: 0 auto;
-    display: block;
-    box-sizing: border-box;
-}
-
+/* 반응형 디자인 */
 @media (max-width: 768px) {
-    .current-images img {
-        max-width: 100%;
-        margin: 0;
+    .container {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    table th, table td {
+        padding: 8px;
+    }
+
+    .file-upload-button {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 6px 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    table tr {
+        margin-bottom: 15px;
+    }
+
+    table td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+    }
+
+    table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 50%;
+        padding-left: 15px;
+        font-weight: bold;
+        text-align: left;
+    }
+
+    .file-upload-button {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+
+    button {
+        font-size: 12px;
+        padding: 4px 8px;
     }
 }
