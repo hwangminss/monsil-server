@@ -16,7 +16,7 @@
 <body>
     <div id="spinners"></div>
     <div class="container">
-        <div id="background-image" class="background-image" th:data-image-url="${bgImg.url}"></div>
+        <div class="background-image" th:style="'background-image: url(' + ${bgImg.url} + ');'"></div>
         <div class="overlay-content">
             <div class="header">
                 <span class="text-large bold-text">LEE EUNSOL</span>

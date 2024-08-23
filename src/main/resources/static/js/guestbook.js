@@ -3,7 +3,7 @@ $(document).ready(function () {
         var $row = $(this).closest("tr");
 
         var id = $row.find("td:first").text().trim();
-
+        setStartSpinner()
         $.ajax({
             url: '/api/guestbook/maDelete',
             method: 'POST',
@@ -20,6 +20,9 @@ $(document).ready(function () {
             error: function (jqXHR, textStatus, errorThrown) {
                 alert('서버 오류 발생: ' + textStatus);
                 console.log('서버 오류:', errorThrown);
+            },
+            complete: function () {
+                setStopSpinner()
             }
         });
     });

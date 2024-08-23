@@ -1,46 +1,48 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8">
-    <title>배경 사진 업로드</title>
-    <link href="/css/galleryPhoto.css" rel="stylesheet">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>홈 페이지</title>
+    <link href="/css/mainPhoto.css" rel="stylesheet">
 </head>
 
 <body>
-    <div class="container">
-        <h1>배경 사진 업로드</h1>
-        <form id="uploadForm">
-            <div class="input-group">
-                <label for="name">사진 이름:</label>
-                <input type="text" id="name" name="name" placeholder="사진의 이름을 입력하세요" required>
-            </div>
-            <div class="input-group file-upload-wrapper">
-                <button type="button" class="file-upload-button" onclick="document.getElementById('file').click();">파일
-                    선택</button>
-                <input type="file" id="file" name="file" accept="image/*" required>
-            </div>
-            <div>
-                <button th:if="${data == null}" id="uploadButton" type="submit" class="file-upload-button">업로드</button>
-                <button th:if="${data != null}" id="modifyButton" type="submit" class="file-upload-button">수정</button>
-            </div>
-        </form>
-        <div class="preview">
-            <h2>미리보기:</h2>
-            <img id="previewImage" src="" alt="배경 이미지" style="display: none;" />
-            <div id="noImage" class="no-image">
-                <p>업로드된 이미지가 없습니다.</p>
-            </div>
+<div class="container">
+    <h1>배경 사진 업로드</h1>
+    <form id="uploadForm">
+        <div class="input-group file-upload-wrapper">
+            <button type="button" class="file-upload-button" onclick="document.getElementById('file').click();">파일 선택</button>
+            <input type="file" id="file" name="file" accept="image/*" required>
         </div>
-        <div class="message" id="message"></div>
-        <div class="current-images">
-            <h2>현재 사진:</h2>
-            <div id="currentImages" th:data-image-url="${data.url}"></div>
+        <div>
+            <button th:if="${data == null}" id="uploadButton" type="submit" class="file-upload-button">업로드</button>
+            <button th:if="${data != null}" id="modifyButton" type="submit" class="file-upload-button">수정</button>
+        </div>
+    </form>
+    <div class="preview">
+        <h2>미리보기:</h2>
+        <img id="previewImage" src="" alt="배경 이미지" style="display: none;" />
+        <div id="noImage" class="no-image">
+            <p>업로드된 이미지가 없습니다.</p>
         </div>
     </div>
-    <script th:src="@{/js/mainPhoto.js}"></script>
+    <div class="message" id="message"></div>
+    <div class="current-images">
+        <h2>현재 사진:</h2>
+        <div id="currentImages" th:if="${data != null}" th:data-image-url="${data.url}">
+        </div>
+        <div th:if="${data == null}" class="no-image">
+            <p>업로드된 이미지가 없습니다.</p>
+        </div>
+    </div>
+    <div id="spinners"></div>
 
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
+<script th:src="@{/js/spinner.js}"></script>
+<script th:src="@{/js/mainPhoto.js}"></script>
 </body>
 
 </html>

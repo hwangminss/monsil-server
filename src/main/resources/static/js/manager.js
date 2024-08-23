@@ -16,6 +16,7 @@ $(document).ready(function () {
         console.log("전화번호 (원본):", phone);
         console.log("전화번호 (수정 후):", "tel:" + phone);
 
+        setStartSpinner()
         $.ajax({
             url: '/api/family/update',
             method: 'POST',
@@ -35,6 +36,9 @@ $(document).ready(function () {
             error: function (jqXHR, textStatus, errorThrown) {
                 alert('서버 오류 발생: ' + textStatus);
                 console.log('서버 오류:', errorThrown);
+            },
+            complete: function () {
+                setStopSpinner()
             }
         });
     });

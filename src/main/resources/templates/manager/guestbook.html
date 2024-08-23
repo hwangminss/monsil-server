@@ -9,45 +9,52 @@
 </head>
 
 <body>
-    <header>
-        <h1>관리자 페이지</h1>
-    </header>
+<header>
+    <h1>관리자 페이지</h1>
+</header>
 
-    <main>
-        <section>
-            <h2>사용자 데이터</h2>
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>이름</th>
-                            <th>내용</th>
-                            <th>생성시간</th>
-                            <th>수정시간</th>
-                            <th>삭제</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="gb : ${guestbook}">
-                            <td th:text="${gb.id}">1</td>
-                            <td th:text="${gb.name}">황민</td>
-                            <td th:text="${gb.detail}">황민</td>
-                            <td th:text="${#temporals.format(gb.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
-                            <td th:text="${#temporals.format(gb.updatedAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
-                            <td><button type="button" class="edit-button">삭제</button></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-    </main>
+<main>
+    <section>
+        <h2>사용자 데이터</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>이름</th>
+                    <th>내용</th>
+                    <th>생성시간</th>
+                    <th>수정시간</th>
+                    <th>삭제시간</th>
+                    <th>삭제</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="gb : ${guestbook}">
+                    <td th:text="${gb.id}">1</td>
+                    <td th:text="${gb.name}">황민</td>
+                    <td th:text="${gb.detail}">황민</td>
+                    <td th:text="${#temporals.format(gb.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                    <td th:text="${#temporals.format(gb.updatedAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                    <td>
+                        <span th:text="${#temporals.format(gb.deletedAt, 'yyyy-MM-dd HH:mm:ss')}"></span>
+                        <span th:if="${gb.deletedAt != null and gb.deletedAt != ''}">삭제완료</span>
+                    </td>
+                    <td>
+                        <button type="button" class="edit-button" th:if="${gb.deletedAt == null or gb.deletedAt == ''}">삭제</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+<div id="spinners"></div>
 
-    <footer>
-        <p>MINSTYLE</p>
-    </footer>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script th:src="@{/js/guestbook.js}"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
+<script th:src="@{/js/spinner.js}"></script>
+<script th:src="@{/js/guestbook.js}"></script>
 </body>
 
 </html>

@@ -18,8 +18,12 @@ document.getElementById('uploadForm').addEventListener('submit', function (event
     const file = fileInput.files[0];
     const reader = new FileReader();
 
+    setStartSpinner()
+
     reader.onloadend = function () {
         const base64String = reader.result.replace("data:", "").replace(/^.+,/, "");
+        console.log("test");
+        console.log(base64String);
 
         const data = {
             file: base64String
@@ -40,14 +44,22 @@ document.getElementById('uploadForm').addEventListener('submit', function (event
             },
             body: JSON.stringify(data)
         })
-            .then(response => response.json())
-            .then(data => {
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        return response.text().then(text => {
+                            throw new Error(`서버 응답 오류: ${text}`);
+                        });
+                    }
+                })
+                .then(data => {
                 if (data.url) {
                     document.getElementById('message').innerText = "업로드 성공!";
                     document.getElementById('previewImage').src = data.url;
                     document.getElementById('noImage').style.display = 'none';
-                    location.reload();
                     loadCurrentImages();
+                    location.reload();
                     alert("업로드 성공")
                 } else {
                     document.getElementById('message').innerText = `업로드 실패: ${data.error}`;
@@ -55,6 +67,9 @@ document.getElementById('uploadForm').addEventListener('submit', function (event
             })
             .catch(error => {
                 document.getElementById('message').innerText = `업로드 실패: ${error}`;
+            })
+            .finally(() => {
+                setStopSpinner()
             });
     };
 

@@ -1,42 +1,3 @@
-function loadCurrentImages() {
-    const currentImagesDiv = document.getElementById('background-image');
-    if (!currentImagesDiv) {
-        console.error('Element with ID "currentImages" not found.');
-        return;
-    }
-
-    const imagePath = currentImagesDiv.getAttribute('data-image-url');
-
-    if (imagePath) {
-        fetch(imagePath)
-            .then(response => {
-                if (response.ok) {
-                    const img = document.createElement('img');
-                    img.src = imagePath;
-                    currentImagesDiv.innerHTML = '';
-                    currentImagesDiv.appendChild(img);
-                } else {
-                    currentImagesDiv.innerHTML = `
-                            <div class="no-image">
-                                <p>업로드된 이미지가 없습니다.</p>
-                        `;
-                }
-            })
-            .catch(error => {
-                currentImagesDiv.innerHTML = `
-                        <div class="no-image">
-                            <p>업로드된 이미지가 없습니다.</p>
-                    `;
-            });
-    } else {
-        currentImagesDiv.innerHTML = `
-                <div class="no-image">
-                    <p>업로드된 이미지가 없습니다.</p>
-        `;
-    }
-}
-
-window.onload = loadCurrentImages;
 //section1~4
 document.addEventListener('DOMContentLoaded', function () {
     let startY;
@@ -360,9 +321,15 @@ async function addGuestbookEntry() {
     const password = document.getElementById('password').value;
 
     if (name && detail && password) {
+        if (password.length < 4) {
+            setStopSpinner();
+            showCustomDialog('비밀번호는 4자리 이상 입력해주세요.');
+            return;
+        }
+
         const entry = { name, detail, password };
         try {
-            setStartSpinner()
+            setStartSpinner();
             await fetch('/api/guestbook/add', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -372,17 +339,18 @@ async function addGuestbookEntry() {
             document.getElementById('name').value = '';
             document.getElementById('detail').value = '';
             document.getElementById('password').value = '';
-            setStopSpinner()
+            setStopSpinner();
         } catch (error) {
-            setStopSpinner()
-            console.log(error)
+            setStopSpinner();
+            console.log(error);
             showCustomDialog('방명록 추가 중 오류가 발생했습니다.');
         }
     } else {
-        setStopSpinner()
+        setStopSpinner();
         showCustomDialog('모든 필드를 입력하세요.');
     }
 }
+
 
 function loadMoreEntries() {
     displayCount += incrementCount;

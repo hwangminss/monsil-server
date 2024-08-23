@@ -1,169 +1,103 @@
+/* General styles */
 body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f0f0f0;
-    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
 }
 
-h1,
-table,
-th,
-td,
-input {
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 0;
     text-align: center;
 }
 
+main {
+    padding: 20px;
+}
+
 .table-container {
-    overflow-x: auto;
+    display: flex;
+    justify-content: center;
+    margin: 20px 10px;
 }
 
 table {
     width: 100%;
+    max-width: 1200px;
     border-collapse: collapse;
-    margin: 20px 20px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-table,
-th,
-td {
-    border: 1px solid #ccc;
-}
-
-th,
-td {
-    padding: 8px;
+th, td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
 }
 
 th {
-    background-color: #87CEEB;
+    background-color: #f2f2f2;
 }
 
-tr:nth-child(even) {
-    background-color: #f9f9f9;
+tr:hover {
+    background-color: #f1f1f1;
 }
 
-footer {
-    margin-top: auto;
-    background-color: #87CEEB;
-    padding: 10px 0;
-    text-align: center;
-    width: 100%;
-}
-
-input {
-    width: 100%;
-    /* 반응형을 위한 100% 폭 설정 */
-    max-width: 100%;
-    /* 최대 폭을 100%로 설정 */
-    padding: 5px;
-    text-align: center;
-    box-sizing: border-box;
-    /* 패딩이 폭에 포함되도록 설정 */
-}
-
-button {
+button.edit-button {
     background-color: #4CAF50;
     color: white;
     border: none;
-    padding: 5px 10px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 14px;
+    padding: 8px 12px;
     cursor: pointer;
+    border-radius: 4px;
 }
 
-/* 반응형 디자인 */
+button.edit-button:hover {
+    background-color: #45a049;
+}
+
+input[type="text"], input[type="date"], input[type="time"] {
+    width: 100%;
+    padding: 8px;
+    margin: 4px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Responsive styles */
 @media (max-width: 768px) {
-    body {
-        padding: 0 10px;
-    }
-
-    table {
-        font-size: 14px;
-    }
-
-    input {
-        max-width: 100%;
-    }
-}
-
-@media (max-width: 480px) {
-    body {
-        padding: 0 5px;
-    }
-
-    h1 {
-        font-size: 18px;
-    }
-
-    table {
+    table, thead, tbody, th, td, tr {
         display: block;
-        width: 100%;
-        overflow-x: auto;
-        white-space: nowrap;
     }
 
-    thead {
+    th {
         display: none;
     }
 
-    tbody,
     tr {
-        display: block;
-        width: 100%;
         margin-bottom: 10px;
     }
 
-    tr {
-        border: 1px solid #ccc;
-        background-color: #fff;
-        position: relative;
-        padding: 10px;
-        box-sizing: border-box;
-        /* Box-sizing 추가 */
-    }
-
     td {
-        display: block;
-        width: 100%;
-        box-sizing: border-box;
-        /* Box-sizing 추가 */
-        border-bottom: 1px solid #ccc;
-        text-align: left;
+        text-align: center;
+        position: relative;
     }
 
     td::before {
         content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 50%;
+        padding-left: 15px;
         font-weight: bold;
-        display: inline-block;
-        width: 40%;
-        margin-right: 10px;
+        text-align: left;
     }
 
-    input {
-        width: 100%;
-        /* 반응형을 위한 100% 폭 설정 */
-        max-width: 100%;
-        /* 최대 폭을 100%로 설정 */
-        padding: 5px;
-        text-align: center;
-        /* 텍스트를 가운데 정렬 */
-        box-sizing: border-box;
-        /* 패딩이 폭에 포함되도록 설정 */
-        margin: 0 auto;
-        /* input 필드를 가운데 정렬 */
-        display: block;
-        /* 블록 요소로 설정 */
-    }
-
-
-
-    button {
-        font-size: 12px;
-        padding: 8px 16px;
+    input[type="text"], input[type="date"], input[type="time"] {
+        width: calc(100% - 30px);
+        margin: 4px 15px;
     }
 }

@@ -18,35 +18,58 @@ document.getElementById('uploadForm').addEventListener('submit', function (event
     const file = fileInput.files[0];
     const reader = new FileReader();
 
+    setStartSpinner()
+
     reader.onloadend = function () {
         const base64String = reader.result.replace("data:", "").replace(/^.+,/, "");
+        console.log("test");
+        console.log(base64String);
 
         const data = {
-            name: document.getElementById('name').value,
             file: base64String
         };
 
-        fetch('/api/manager/uploadMain', {
+        const buttonId = event.submitter.id;
+        let apiUrl = '';
+        if (buttonId === 'uploadButton') {
+            apiUrl = '/api/manager/uploadMain';
+        } else if (buttonId === 'modifyButton') {
+            apiUrl = '/api/manager/modifyMain';
+        }
+
+        fetch(apiUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
         })
-            .then(response => response.json())
-            .then(data => {
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        return response.text().then(text => {
+                            throw new Error(`서버 응답 오류: ${text}`);
+                        });
+                    }
+                })
+                .then(data => {
                 if (data.url) {
                     document.getElementById('message').innerText = "업로드 성공!";
                     document.getElementById('previewImage').src = data.url;
                     document.getElementById('noImage').style.display = 'none';
                     location.reload();
                     loadCurrentImages();
+                    alert("업로드 성공")
                 } else {
                     document.getElementById('message').innerText = `업로드 실패: ${data.error}`;
                 }
             })
             .catch(error => {
                 document.getElementById('message').innerText = `업로드 실패: ${error}`;
+            })
+            .finally(() => {
+                setStopSpinner()
             });
     };
 
@@ -55,6 +78,11 @@ document.getElementById('uploadForm').addEventListener('submit', function (event
 
 function loadCurrentImages() {
     const currentImagesDiv = document.getElementById('currentImages');
+    if (!currentImagesDiv) {
+        console.error('Element with ID "currentImages" not found.');
+        return;
+    }
+
     const imagePath = currentImagesDiv.getAttribute('data-image-url');
 
     if (imagePath) {
@@ -69,7 +97,6 @@ function loadCurrentImages() {
                     currentImagesDiv.innerHTML = `
                             <div class="no-image">
                                 <p>업로드된 이미지가 없습니다.</p>
-                            </div>
                         `;
                 }
             })
@@ -77,16 +104,16 @@ function loadCurrentImages() {
                 currentImagesDiv.innerHTML = `
                         <div class="no-image">
                             <p>업로드된 이미지가 없습니다.</p>
-                        </div>
                     `;
             });
     } else {
         currentImagesDiv.innerHTML = `
                 <div class="no-image">
                     <p>업로드된 이미지가 없습니다.</p>
-                </div>
-            `;
+        `;
     }
 }
 
 window.onload = loadCurrentImages;
+
+
