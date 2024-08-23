@@ -32,9 +32,13 @@ class ViewHandler(
 
     suspend fun index(request: ServerRequest): ServerResponse {
         val bgImg = photoRepository.findByIdAndIsMain(1,1).awaitSingleOrNull()
+        val gallery = photoRepository.findByIsMain(0).collectList().awaitSingleOrNull()
         return HTML.render(
             "index/index",
-            mapOf("bgImg" to bgImg)
+            mapOf(
+                "bgImg" to bgImg,
+                "gallery" to gallery
+            )
         ).awaitSingle()
     }
 

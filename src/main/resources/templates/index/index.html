@@ -72,14 +72,23 @@
         <div class="gallery">
             <h2 class="title">Gallery</h2><br>
             <div class="gallery-container">
-                <div class="gallery-item" onclick="showImagePreview(0)">
-                    <img src="/img/background.png" alt="Image 1">
-                </div>
-                <div class="gallery-item" onclick="showImagePreview(1)">
-                    <img src="/img/123.png" alt="Image 2">
-                </div>
-                <div class="gallery-item" onclick="showImagePreview(2)">
-                    <img src="/img/images.jpeg" alt="Image 3">
+                <div class="scroll-container">
+                    <div class="even-gallery">
+                        <div th:each="unit, iterStat : ${gallery}">
+                            <div class="gallery-item" th:if="${iterStat.index} % 2 == 0"
+                                 th:onclick="'showImagePreview(' + ${iterStat.index} + ')'">
+                                <img th:src="${unit.url}" alt="Image">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="odd-gallery">
+                        <div th:each="unit, iterStat : ${gallery}">
+                            <div class="gallery-item" th:if="${iterStat.index} % 2 != 0"
+                                 th:onclick="'showImagePreview(' + ${iterStat.index} + ')'">
+                                <img th:src="${unit.url}" alt="Image">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -166,6 +175,7 @@
             </div>
         </div>
     </div>
+
     <!-- Delete Dialog -->
     <div id="deleteDialog" class="dialog hidden">
         <div class="dialog-content">
@@ -211,6 +221,13 @@
         </div>
     </div>
 </body>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var gallery = [[${gallery}]];
+    var imageUrls = gallery.map(item => item.url);
+    console.log(imageUrls);
+    /*]]>*/
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=2il4t9ay84"></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>

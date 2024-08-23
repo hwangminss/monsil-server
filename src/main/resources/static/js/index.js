@@ -110,12 +110,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 //section5
-const images = [
-    '/img/background.png',
-    '/img/123.png',
-    '/img/images.jpeg'
-];
-
 let currentIndex = 0;
 let startX = 0;
 
@@ -123,7 +117,7 @@ function showImagePreview(index) {
     currentIndex = index;
     const modal = document.getElementById('imagePreviewModal');
     const modalImage = document.getElementById('modalImage');
-    modalImage.src = images[index];
+    modalImage.src = imageUrls[index];
     modal.style.display = 'block';
 
     const imageContainer = document.getElementById('modalImageContainer');
@@ -137,9 +131,9 @@ function closeImagePreview() {
 }
 
 function changeImage(direction) {
-    currentIndex = (currentIndex + direction + images.length) % images.length;
+    currentIndex = (currentIndex + direction + imageUrls.length) % imageUrls.length;
     const modalImage = document.getElementById('modalImage');
-    modalImage.src = images[currentIndex];
+    modalImage.src = imageUrls[currentIndex];
 }
 
 function handleTouchStart(event) {

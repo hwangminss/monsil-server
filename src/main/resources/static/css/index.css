@@ -212,21 +212,31 @@ a {
 }
 
 .gallery-container {
-    display: flex;
-    justify-content: center;
     max-width: 600px;
     margin: 16px auto;
     overflow-x: auto;
 }
 
+.even-gallery, .odd-gallery {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 16px;
+    scroll-behavior: smooth;
+}
+
 .gallery-item {
-    margin: 0 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    height: 200px;
+    position: relative;
 }
 
 .gallery-item img {
-    width: 100px;
-    height: 100px;
-    cursor: pointer;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
 }
 
 .modal {

@@ -206,8 +206,6 @@ class ManageApiHandler (
             val exFile = manageService.loadGalleryPt(glId)
             val exFileName = exFile.url!!.split("/");
 
-            println("$exFile \n $exFileName")
-
             if (exFile != null) {
                 val path = Paths.get(GALLERY_UPLOAD_DIR).resolve(exFileName.last())
 
