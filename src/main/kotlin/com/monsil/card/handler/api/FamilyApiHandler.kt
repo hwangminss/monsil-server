@@ -74,4 +74,19 @@ class FamilyApiHandler (
                 .bodyValueAndAwait("비밀번호 오류 발생")
         }
     }
+
+    suspend fun delete(request: ServerRequest): ServerResponse {
+        val gbId = request.pathVariable("id").toLongOrNull()
+        if (gbId == null) {
+            log.warn("유효하지 않은 ID입니다")
+            return ServerResponse.badRequest().bodyValueAndAwait("유효하지 않은 ID 형식입니다")
+        }
+        familyService.delete(gbId)
+        return try {
+            ServerResponse.ok().build().awaitSingle()
+        } catch (e: Exception) {
+            ServerResponse.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .bodyValueAndAwait("비밀번호 오류 발생")
+        }
+    }
 }

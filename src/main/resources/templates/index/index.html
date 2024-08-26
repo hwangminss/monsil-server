@@ -23,15 +23,15 @@
                 <span class="text-large bold-text">HWANG MIN</span>
             </div>
             <div class="footer">
-                <div class="text-large bold-text">2025.11.08. SAT 13:00</div><br>
+                <div class="text-large bold-text">2025.11.08. SAT 13:00</div>
                 <div class="text-large bold-text">정동제일교회 본당</div>
             </div>
         </div>
     </div>
     <div class="section s2">
         <p class="title">Invitation</p><br><br>
-        <img src="/img/leftQuotes.png" alt="Left Quotes" class="quote">
-        <span class="text"> 저희 이벤트에 초대합니다<br>즐거운 저녁을 함께하세요.<br>여러분을 뵙기를 기대합니다! </span>
+        <img src="/img/leftQuotes.png" alt="Left Quotes" class="quote"><br>
+        <span class="text"> 저희 이벤트에 초대합니다<br>즐거운 저녁을 함께하세요.<br>여러분을 뵙기를 기대합니다! </span><br>
         <img src="/img/rightQuotes.png" alt="Right Quotes" class="quote">
         <div class="separator">-</div>
         <span class="text">황현기 · 박인숙</span> 의 아들 <span class="text">황민<br>이완규 · 홍순자</span> 의 딸 <span
@@ -73,17 +73,25 @@
             <h2 class="title">Gallery</h2><br>
             <div class="gallery-container">
                 <div class="scroll-container">
-                    <div class="even-gallery">
+                    <div class="one-thirds-gallery">
                         <div th:each="unit, iterStat : ${gallery}">
-                            <div class="gallery-item" th:if="${iterStat.index} % 2 == 0"
+                            <div class="gallery-item" th:if="${iterStat.index} % 3 == 0"
                                  th:onclick="'showImagePreview(' + ${iterStat.index} + ')'">
                                 <img th:src="${unit.url}" alt="Image">
                             </div>
                         </div>
                     </div>
-                    <div class="odd-gallery">
+                    <div class="two-thirds-gallery">
                         <div th:each="unit, iterStat : ${gallery}">
-                            <div class="gallery-item" th:if="${iterStat.index} % 2 != 0"
+                            <div class="gallery-item" th:if="${iterStat.index} % 3 == 1"
+                                 th:onclick="'showImagePreview(' + ${iterStat.index} + ')'">
+                                <img th:src="${unit.url}" alt="Image">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="three-thirds-gallery">
+                        <div th:each="unit, iterStat : ${gallery}">
+                            <div class="gallery-item" th:if="${iterStat.index} % 3 == 2"
                                  th:onclick="'showImagePreview(' + ${iterStat.index} + ')'">
                                 <img th:src="${unit.url}" alt="Image">
                             </div>
@@ -108,7 +116,7 @@
                 <p>🚊 <strong>지하철 이용시</strong><br>
                     1,2호선 시청역 10번 출구, 5호선 서대문역 5번 출구</p>
                 <p>🚘 <strong>주차 안내</strong><br>
-                    배재?화? 빌딩 주차장</p>
+                    배재빌딩 주차장</p>
             </div>
         </div>
     </div>

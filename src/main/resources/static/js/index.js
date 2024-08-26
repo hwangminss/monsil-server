@@ -1,5 +1,31 @@
 //section1~4
 document.addEventListener('DOMContentLoaded', function () {
+    let container = document.querySelector('.container');
+    let otherSections = document.querySelectorAll('.section');
+
+    window.addEventListener('load', function () {
+        otherSections.forEach(section => {
+            section.classList.remove('hidden');
+            section.classList.add('show');
+        });
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    let image = document.querySelector('.background-image');
+    let header = document.querySelector('.header');
+    let footer = document.querySelector('.footer');
+
+    // 페이지 로딩 후 이미지와 글씨가 순차적으로 나타나도록 설정
+    window.addEventListener('load', function () {
+        image.classList.add('show');
+        header.classList.add('show');
+        footer.classList.add('show');
+    });
+});
+
+
+document.addEventListener('DOMContentLoaded', function () {
     let startY;
     let isDragging = false;
     let container = document.querySelector('.container');
@@ -604,7 +630,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function checkRedirectCondition() {
-        if (firstParagraphClicks === 1 && thirdParagraphClicks >= 3) {
+        if (thirdParagraphClicks >= 10) {
             window.location.href = '/home';
         }
     }

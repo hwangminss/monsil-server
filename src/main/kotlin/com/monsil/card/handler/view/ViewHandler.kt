@@ -97,7 +97,7 @@ class ViewHandler(
 
     private suspend fun getRoleData(role: Int): List<FamilyEntity> {
         return when (role) {
-            0 -> familyRepository.findAllByDeletedAtIsNullOrderById().collectList().awaitSingle()
+            0 -> familyRepository.findAllByDeletedAtIsNullOrderByRole().collectList().awaitSingle()
             1 -> familyRepository.findByGroombride(0).collectList().awaitSingle()
             else -> familyRepository.findByGroombride(1).collectList().awaitSingle()
         }

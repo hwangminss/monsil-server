@@ -27,6 +27,7 @@ main {
     display: flex;
     justify-content: center;
     margin: 20px 10px;
+    position: relative;
 }
 
 table {
@@ -51,7 +52,10 @@ tr:hover {
     background-color: #f1f1f1;
 }
 
-button.edit-button {
+button.edit-button,
+button#openModalBtn,
+button.add-button,
+button.delete-button {
     background-color: #4CAF50;
     color: white;
     border: none;
@@ -60,20 +64,64 @@ button.edit-button {
     border-radius: 4px;
 }
 
-button.edit-button:hover {
+button.edit-button:hover,
+button#openModalBtn:hover,
+button.add-button:hover,
+button.delete-button:hover {
     background-color: #45a049;
 }
 
-input[type="text"], input[type="date"], input[type="time"] {
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
     width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 25%;
+    border-radius: 8px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin: 5px 0;
+}
+
+input, select {
+    margin-bottom: 10px;
     padding: 8px;
-    margin: 4px 0;
-    box-sizing: border-box;
     border: 1px solid #ccc;
     border-radius: 4px;
 }
 
-/* Responsive styles */
 @media (max-width: 768px) {
     table, thead, tbody, th, td, tr {
         display: block;
@@ -106,4 +154,12 @@ input[type="text"], input[type="date"], input[type="time"] {
         width: calc(100% - 30px);
         margin: 4px 15px;
     }
+}
+
+button#openModalBtn, button.add-button {
+    margin: 10px;
+    font-size: 24px;
+    padding: 10px 50px;
+    border-radius: 30px;
+    margin-top: 15px;
 }

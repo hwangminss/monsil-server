@@ -15,8 +15,9 @@ data class FamilyEntity(
     companion object {
         fun assign(family: FamilyDTO): FamilyEntity {
             return FamilyEntity(id = null).apply {
-                role = family.role
+                role = family.role.toInt()
                 name = family.name
+                bank = family.bank
                 account = family.account
                 kakao = family.kakao
                 phone = "tel:${family.phone}"

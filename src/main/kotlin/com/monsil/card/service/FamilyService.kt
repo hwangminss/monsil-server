@@ -6,8 +6,10 @@ import com.monsil.card.handler.dto.FamilyUpdateDTO
 import com.monsil.card.repository.family.FamilyEntity
 import com.monsil.card.repository.family.FamilyRepository
 import kotlinx.coroutines.reactor.awaitSingle
+import kotlinx.coroutines.reactor.awaitSingleOrNull
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Flux
+import reactor.core.publisher.Mono
 import java.time.LocalDateTime
 
 @Service
@@ -22,7 +24,7 @@ class FamilyService(
     }
 
     suspend fun list(): Flux<FamilyEntity> {
-        return familyRepository.findAllByDeletedAtIsNullOrderById()
+        return familyRepository.findAllByDeletedAtIsNullOrderByRole()
     }
 
     suspend fun update(family: FamilyUpdateDTO): FamilyEntity {
@@ -37,5 +39,9 @@ class FamilyService(
 
                 familyRepository.save(it)
             }.awaitSingle()
+    }
+
+    suspend fun delete(id: Long): Void? {
+        return familyRepository.deleteById(id).awaitSingleOrNull()
     }
 }

@@ -40,9 +40,10 @@ class Router(
                 GET("mono/{id}", guestbookApiHandler::mono)
             }
             "family".nest{
-                GET("add", familyApiHandler::add)
+                POST("add", familyApiHandler::add)
                 GET("list", familyApiHandler::list)
                 POST("update", familyApiHandler::update)
+                DELETE("delete/{id}", familyApiHandler::delete)
             }
             "manager".nest{
                 POST("signUp", manageApiHandler::signUp)
