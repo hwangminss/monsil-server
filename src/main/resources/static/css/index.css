@@ -22,15 +22,26 @@ body * {
     user-select: none;
 }
 
-.hidden {
-    visibility: hidden;
+.container {
+    max-width: 400px;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
 }
 
-.show {
-    visibility: visible;
+@media (max-width: 600px) {
+    .container {
+        border-radius: 0;
+        margin: 0 auto;
+    }
 }
 
-/* 이미지와 글씨의 초기 상태 설정 */
+body {
+    background-color: #E0F7FA;
+}
+
+
 .image {
     opacity: 0;
     transition: opacity 1s ease-in;
@@ -38,10 +49,9 @@ body * {
 
 .header, .footer {
     opacity: 0;
-    transition: opacity 1s ease-in 1s; /* 1초 후에 글씨가 나타나도록 설정 */
+    transition: opacity 1s ease-in 1s;
 }
 
-/* 이미지와 글씨가 나타나는 상태 설정 */
 .image.show {
     opacity: 1;
 }
@@ -50,18 +60,16 @@ body * {
     opacity: 1;
 }
 
-/* 글씨에 그림자 추가 */
 .text-large {
-    font-size: 22px;
+    font-size: 26px;
     color: white;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* 그림자 추가 */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .bold-text {
     font-family: 'GangWonBold';
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* 그림자 추가 */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
-
 
 .text {
     font-size: 20px;
@@ -70,12 +78,7 @@ body * {
     overflow-wrap: break-word;
 }
 
-.bold-text {
-    font-family: 'GangWonBold';
-}
-
-body,
-html {
+body, html {
     height: 100%;
     width: 100%;
     overflow-x: hidden;
@@ -87,20 +90,11 @@ a {
     color: black;
 }
 
-a:visited {
+a:visited, a:hover, a:active {
     color: black;
 }
 
-a:hover {
-    color: black;
-}
-
-a:active {
-    color: black;
-}
-
-
-.container {
+.s1 {
     position: fixed;
     top: 0;
     left: 0;
@@ -114,41 +108,64 @@ a:active {
     z-index: 2;
 }
 
-.container.fade-out {
+.s1.fade-out {
     opacity: 0;
     transform: translateY(-100%);
 }
 
-.container.show {
+.s1.show {
     opacity: 1;
     transform: translateY(0);
 }
 
 .overlay-content {
+    margin-top: 40px;
     position: relative;
-    width: 600px;
+    width: 400px;
     height: 100%;
     z-index: 2;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     overflow: hidden;
+    transform: translate(-2%);
 }
 
 .background-image {
     position: absolute;
     top: 0;
     left: 50%;
-    width: 600px;
+    width: 405px;
     height: 100%;
     background-size: cover;
     background-position: center;
-    transform: translateX(-50%);
+    transform: translateX(-52%);
     z-index: 2;
+    margin: 20px auto;
+    border-radius: 17px;
 }
 
-.header,
-.footer {
+@media (max-width: 600px) {
+    .overlay-content {
+        margin-top: 0px;
+        transform: translate(0%);
+    }
+    .background-image {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 400px;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        transform: translateX(-50%);
+        z-index: 2;
+        margin: 0 auto;
+        border-radius: 0px;
+    }
+}
+
+.header, .footer {
     text-align: center;
     display: flex;
     justify-content: space-between;
@@ -164,16 +181,6 @@ a:active {
     flex-direction: column;
 }
 
-.text-large {
-    font-size: 22px;
-    color: white;
-}
-
-.text-large {
-    font-size: 26px;
-    color: white;
-}
-
 .s2 {
     position: relative;
     z-index: 1;
@@ -181,9 +188,8 @@ a:active {
 }
 
 .section {
-    max-width: 600px;
     text-align: center;
-    padding: 30px 20px 150px 20px;
+    padding: 30px 10px 150px 10px;
     margin: 0 auto;
 }
 
@@ -265,40 +271,24 @@ a:active {
 .gallery-container {
     max-width: 100vw;
     margin: 16px auto;
-    overflow-x: auto;
-}
-
-.one-thirds-gallery, .two-thirds-gallery, .three-thirds-gallery {
-    display: flex;
-    justify-content: flex-start;
-    margin-bottom: 16px;
-    scroll-behavior: smooth;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(calc(50% - 16px), 1fr));
+    grid-gap: 5px;
 }
 
 .gallery-item {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 16px;
-}
-
-/* Mobile styles */
-@media (max-width: 768px) {
-    .gallery-item {
-        width: calc(33.33vw - 24px);
-        height: calc(33.33vw - 24px);
-    }
-}
-
-/* Desktop styles */
-@media (min-width: 769px) {
-    .gallery-item {
-        width: calc(11.33vw - 24px);
-        height: calc(11.33vw - 24px);
-    }
+    width: 100%;
+    padding-bottom: 100%;
+    position: relative;
 }
 
 .gallery-item img {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -321,7 +311,6 @@ a:active {
     margin: auto;
     padding: 0;
     width: 90%;
-    max-width: 600px;
     top: 50%;
     transform: translateY(-50%);
     text-align: center;
@@ -473,6 +462,7 @@ a:active {
     flex: 1;
     padding: 12px 16px;
     border: 1px solid #dddddd;
+    border-radius: 8
     border-radius: 8px;
     text-align: center;
     cursor: pointer;
@@ -481,7 +471,6 @@ a:active {
 
 .s8 {
     background-color: #F4F5F8;
-    max-width: 600px;
     text-align: center;
     margin: 0 auto;
     padding: 30px 20px 30px 20px;
@@ -492,32 +481,26 @@ a:active {
     flex-direction: column;
 }
 
-input[type="text"],
-input[type="password"],
-textarea {
+input[type="text"], input[type="password"], textarea {
     width: 100%;
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
-    font-family: "GangWongLight";
+    font-family: "GangWonLight";
 }
 
 textarea {
     height: 50px;
     resize: none;
-    font-family: "GangWongLight";
 }
 
 input {
-    font-family: "GangWongLight";
+    font-family: "GangWonLight";
 }
 
-::-webkit-input-placeholder,
-::-moz-placeholder,
-:-ms-input-placeholder,
-::placeholder {
-    font-family: "GangWongLight";
+::-webkit-input-placeholder, ::-moz-placeholder, :-ms-input-placeholder, ::placeholder {
+    font-family: "GangWonLight";
 }
 
 button {
@@ -587,7 +570,6 @@ button {
     color: #000000;
 }
 
-
 .dialog {
     position: fixed;
     top: 0;
@@ -622,8 +604,7 @@ button {
     text-align: left;
 }
 
-.dialog input,
-.dialog textarea {
+.dialog input, .dialog textarea {
     font-family: 'GangWonLight';
     width: calc(100% - 80px);
     border-radius: 5px;
@@ -656,9 +637,15 @@ button {
 }
 
 .hidden {
-    display: none;
+    opacity: 0;
+    visibility: hidden;
 }
 
+.show {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.6s ease-in-out;
+}
 
 .s9 {
     width: 100%;
@@ -667,7 +654,6 @@ button {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    max-width: 600px;
     text-align: center;
     margin: 0 auto;
 }
@@ -688,7 +674,6 @@ button {
 }
 
 .s10 {
-    max-width: 600px;
     text-align: center;
     margin: 0 auto;
     display: flex;
@@ -711,5 +696,20 @@ button {
 @media (min-width: 768px) {
     .dialog-content {
         width: 500px;
+    }
+}
+
+@media (min-width: 768px) {
+    body, html {
+        background-color: #E0F7FA;
+    }
+
+    .content-wrapper {
+        max-width: 600px;
+        margin: 40px auto;
+        background-color: white;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 }

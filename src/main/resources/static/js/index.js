@@ -1,15 +1,29 @@
 //section1~4
 document.addEventListener('DOMContentLoaded', function () {
-    let container = document.querySelector('.container');
-    let otherSections = document.querySelectorAll('.section');
+    let initialSection = document.querySelector('.s1');
+    initialSection.classList.add('show');
 
-    window.addEventListener('load', function () {
-        otherSections.forEach(section => {
-            section.classList.remove('hidden');
-            section.classList.add('show');
+    let lazySections = document.querySelectorAll('.section:not(.s1)');
+    lazySections.forEach(section => {
+        section.classList.add('hidden'); // Hide other sections
+    });
+
+    let observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                let section = entry.target;
+                section.classList.remove('hidden');
+                section.classList.add('show');
+                observer.unobserve(section);
+            }
         });
+    }, { threshold: 0.1 });
+
+    lazySections.forEach(section => {
+        observer.observe(section);
     });
 });
+
 
 document.addEventListener('DOMContentLoaded', function () {
     let image = document.querySelector('.background-image');
@@ -28,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
 document.addEventListener('DOMContentLoaded', function () {
     let startY;
     let isDragging = false;
-    let container = document.querySelector('.container');
+    let container = document.querySelector('.s1');
     let section2 = document.querySelector('.s2');
 
     if (!section2) {
