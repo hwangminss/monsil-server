@@ -580,7 +580,7 @@ function shareKakaoLink() {
             },
             buttons: [
                 {
-                    title: '자세히 보기',
+                    title: '모바일 청첩장 보기',
                     link: {
                         mobileWebUrl: 'https://eungming.com/',
                         webUrl: 'https://eungming.com/',
